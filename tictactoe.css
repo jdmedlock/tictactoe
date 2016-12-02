@@ -69,9 +69,14 @@ h4.pt-interval-message {
 }
 
 /* ---------------------------------------------
-   Burndown circle
+   Game Board
    --------------------------------------------- */
-
+.t3-bar-row {
+  margin-top:5px;
+  padding: 5px;
+  outline: 2px solid #ccc;
+  outline-offset: -10px;
+}
 
 /* ---------------------------------------------
    Help dialog
