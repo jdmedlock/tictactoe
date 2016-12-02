@@ -22,16 +22,41 @@ URL: tttgame.surge.sh
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href="tictactoe.css" rel="stylesheet" />
 </head>
+
 <body>
-    <!-- Webpage using Bootstrap -->
+  <!-- Main webpage body -->
+  <div class="container-fluid">
+
+    <!-- Page Banner -->
     <div class="jumbotron pt-jumbotron">
       <h3 class="pt-page-title">Tic-Tac-Toe</h3>
       <h4 class="pt-interval-message"></h4>
     </div>
 
-    <!-- Main webpage body -->
-    <div class="container-fluid">
+    <!-- Tic-Tac-Toe Board -->
+    <div class="row text-right t3-bar-row">
+      <div class="col-xs-10 col-xs-offset-1 text-center">
+      </div>
     </div>
+
+  </div>
+
+  <!-- Bottom Bar - Sticky Footer -->
+  <div class="container pt-bottom-bar">
+    <div class="row text-center">
+      <div class="col-xs-12">
+        <h6>&copy;2016 Jim Medlock, All Rights Reserved</h6>
+        <a href="http://codepen.io/jdmedlock" target="_blank">
+          <i class="fa fa-codepen"></i>&nbsp;CodePen</a>
+        <a href="http://www.freecodecamp.com/jdmedlock" target="_blank">
+          <i class="fa fa-fire"></i>&nbsp;freeCodeCamp</a>
+        <a href="https://github.com/jdmedlock" target="_blank">
+          <i class="fa fa-github"></i>&nbsp;Github</a>
+        <a href="http://twitter.com/jd_medlock" target="_blank">
+          <i class="fa fa-twitter"></i>&nbsp;Twitter</a>
+      </div>
+    </div>
+  </div>
 
     <!-- ALL JAVASCRIPT LINKS GOES RIGHT BEFORE THE ENDING BODY TAG -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
