@@ -71,7 +71,7 @@ h4.pt-interval-message {
 /* ---------------------------------------------
    Game Board
    --------------------------------------------- */
-.t3-bar-row {
+.t3-board-cell {
   margin-top:5px;
   padding: 5px;
   outline: 2px solid #ccc;
