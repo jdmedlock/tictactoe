@@ -118,7 +118,7 @@ h3 {
   width: 30%;
 }
 
-.t3-results-tbl.thead {
+.t3-results-tbl.thead.th {
   background-color: #8B8E8F;
   text-align: center;
   width: 30%;
