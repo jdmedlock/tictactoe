@@ -46,7 +46,7 @@ function claimCell(charToPlace, canvasName) {
    var ctx = document.querySelector(canvasName).getContext("2d");
 
    //var dashLen = 220;
-   var dashLen = 15
+   var dashLen = 10;
    var dashOffset = dashLen;
    var speed = 1;
    var txt = charToPlace;
