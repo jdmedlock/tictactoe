@@ -84,9 +84,9 @@ h4.pt-interval-message {
 #t3-cell-2,
 #t3-cell-5 {
   border-top-color: transparent;
-  border-left-color: white;
-  border-right-color: white;
-  border-bottom-color: white;
+  border-left-color: #5D6D74;
+  border-right-color: #5D6D74;
+  border-bottom-color: #5D6D74;
   border-style: solid;
 }
 
@@ -97,14 +97,14 @@ h4.pt-interval-message {
   border-top-color: transparent;
   border-left-color: transparent;
   border-right-color: transparent;
-  border-bottom-color: white;
+  border-bottom-color: #5D6D74;
   border-style: solid;
 }
 
 #t3-cell-8 {
   border-top-color: transparent;
-  border-left-color: white;
-  border-right-color: white;
+  border-left-color: #5D6D74;
+  border-right-color: #5D6D74;
   border-bottom-color: transparent;
   border-style: solid;
 }
@@ -114,7 +114,7 @@ h4.pt-interval-message {
    --------------------------------------------- */
 
 .t3-game-results {
-   margin-top: 10px;   
+   margin-top: 10px;
 }
 
 .t3-results-tbl {
@@ -125,7 +125,7 @@ h4.pt-interval-message {
 }
 
 .t3-results-tbl.thead {
-  background-color: white;
+  background-color: #5D6D74;
 }
 
 /* ---------------------------------------------
