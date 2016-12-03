@@ -46,14 +46,14 @@ function claimCell(charToPlace, canvasName) {
    var i = 0;
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
-   ctx.font = "16px arial, sans-serif";
+   ctx.font = "20px arial, sans-serif";
    ctx.lineWidth = 5;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
    ctx.strokeStyle = ctx.fillStyle = "#FFFFFF";
 
    (function loop() {
-      ctx.clearRect(x, 0, 60, 150);
+      ctx.clearRect(x, 0, 20, 150);
       ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
       dashOffset -= speed; // reduce dash length
       ctx.strokeText(txt[i], x, 20); // stroke letter
