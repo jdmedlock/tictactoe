@@ -69,5 +69,5 @@ function claimCell(charToPlace, canvasName) {
          ctx.rotate(Math.random() * 0.005); // random rotation
          if (i < txt.length) requestAnimationFrame(loop);
       }
-   })(); * /
+   })();
 }
