@@ -38,7 +38,7 @@ function claimCell(charToPlace, canvasName) {
    var ctx = document.querySelector(canvasName).getContext("2d");
 
    //var dashLen = 220;
-   var dashLen = 60
+   var dashLen = 20
    var dashOffset = dashLen;
    var speed = 1;
    var txt = charToPlace;
@@ -58,14 +58,17 @@ function claimCell(charToPlace, canvasName) {
       dashOffset -= speed; // reduce dash length
       ctx.strokeText(txt[i], x, 20); // stroke letter
 
-      if (dashOffset > 0) requestAnimationFrame(loop); // animate
-      else {
+      if (dashOffset > 0) {
+         requestAnimationFrame(loop); // animate
+      } else {
          ctx.fillText(txt[i], x, 20); // fill final letter
          dashOffset = dashLen; // prep next char
          x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
          ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
          ctx.rotate(Math.random() * 0.005); // random rotation
-         if (i < txt.length) requestAnimationFrame(loop);
+         if (i < txt.length) {
+            requestAnimationFrame(loop);
+         }
       }
    })();
 }
