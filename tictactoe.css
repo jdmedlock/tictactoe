@@ -17,6 +17,11 @@ body {
   margin-bottom: 60px;
 }
 
+h3 {
+  color: white;
+  margin-top: 5px;
+}
+
 /* ---------------------------------------------
    Common elements used throughout the page
    --------------------------------------------- */
@@ -55,11 +60,6 @@ body {
   padding-top: 1px;
   padding-bottom: 10px;
   text-align: center;
-}
-
-h3.pt-page-title {
-  color: white;
-  margin-top: 5px;
 }
 
 /* ---------------------------------------------
