@@ -53,10 +53,10 @@ function claimCell(charToPlace, canvasName) {
    ctx.strokeStyle = ctx.fillStyle = "#FFFFFF";
 
    (function loop() {
-      ctx.clearRect(x, 0, 15, 150);
+      ctx.clearRect(x, 0, 20, 150);
       ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
       dashOffset -= speed; // reduce dash length
-      ctx.strokeText(txt[i], x, 15); // stroke letter
+      ctx.strokeText(txt[i], x, 20); // stroke letter
 
       if (dashOffset > 0) requestAnimationFrame(loop); // animate
       else {
