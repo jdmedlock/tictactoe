@@ -85,7 +85,7 @@ h4.pt-interval-message {
   text-align: center;
 }
 
-.t3-results-tbl thead {
+.t3-results-tbl.thead {
   background-color: white;
 }
 
