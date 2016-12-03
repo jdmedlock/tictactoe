@@ -69,7 +69,7 @@ function claimCell(charToPlace, canvasName) {
       if (dashOffset > 0) {
          requestAnimationFrame(loop); // animate
       } else {
-         ctx.fillText(txt[i], x, 30); // fill final letter
+         ctx.fillText(txt[i], x, 5); // fill final letter
          dashOffset = dashLen; // prep next char
          x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
          ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
