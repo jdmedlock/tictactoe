@@ -18,7 +18,7 @@ $(document).ready(function() {
   $(".pt-btn-break-minus").click(function(event) {
   });
 
-  claimCell("X","#t3-canvas-1");
+  claimCell("X","t3-canvas-1");
 
 });
 
