@@ -81,6 +81,14 @@ h4.pt-interval-message {
   height: auto;
 }
 
+#t3-cell-1,
+#t3-cell-4,
+#t3-cell-7 {
+  border-right-color: white;
+  border-bottom-color: white;
+  border-style: solid;
+}
+
 /* ---------------------------------------------
    Game Results History
    --------------------------------------------- */
