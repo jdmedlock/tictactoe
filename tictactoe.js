@@ -61,7 +61,7 @@ function claimCell(charToPlace, canvasName) {
    ctx.strokeStyle = ctx.fillStyle = "#FF00FF";
 
    (function loop() {
-      ctx.clearRect(x, 0, 20, 150);
+      ctx.clearRect(x, 0, 15, 150);
       ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
       dashOffset -= speed; // reduce dash length
       ctx.strokeText(txt[i], x, 30); // stroke letter
