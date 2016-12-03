@@ -110,7 +110,7 @@ h4.pt-interval-message {
 
 #t3-cell-7,
 #t3-cell-8 {
-  border-top-color: white;
+  border-top-color: transparent;
   border-left-color: transparent;
   border-right-color: white;
   border-bottom-color: transparent;
@@ -118,7 +118,7 @@ h4.pt-interval-message {
 }
 
 #t3-cell-9 {
-  border-top-color: white;
+  border-top-color: transparent;
   border-left-color: white;
   border-right-color: transparent;
   border-bottom-color: transparent;
