@@ -17,7 +17,7 @@ $(document).ready(function() {
    // Create a button handler to decrement the break interval length
    $(".pt-btn-break-minus").click(function(event) {});
 
-   claimCell("X", "#t3-canvas-1");
+   claimCell("O", "#t3-canvas-1");
 });
 
 // -------------------------------------------------------------
