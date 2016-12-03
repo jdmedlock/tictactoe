@@ -46,7 +46,7 @@ function claimCell(charToPlace, canvasName) {
    var i = 0;
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
-   ctx.font = "22px arial, sans-serif";
+   ctx.font = "20px arial, sans-serif";
    ctx.lineWidth = 5;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
