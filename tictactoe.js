@@ -58,7 +58,7 @@ function claimCell(charToPlace, canvasName) {
    ctx.lineWidth = 2;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
-   ctx.strokeStyle = ctx.fillStyle = "#FFFFFF";
+   ctx.strokeStyle = ctx.fillStyle = "#5D6D74";
 
    (function loop() {
       ctx.clearRect(x, 0, 18, 150);
