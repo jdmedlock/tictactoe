@@ -36,19 +36,21 @@ $(document).ready(function() {
 function claimCell(charToPlace, canvasName) {
    console.log("Entered claimCell");
    var ctx = document.querySelector(canvasName).getContext("2d");
-   var dashLen = 220;
+   //var dashLen = 220;
+   var dashLen = 60
    var dashOffset = dashLen;
    var speed = 5;
    var txt = charToPlace;
-   var x = 30;
+   //   var x = 30;
+   var x = 5;
    var i = 0;
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
-   ctx.font = "32px arial, sans-serif";
+   ctx.font = "12px arial, sans-serif";
    ctx.lineWidth = 5;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
-   ctx.strokeStyle = ctx.fillStyle = "#5D6D74";
+   ctx.strokeStyle = ctx.fillStyle = "#FFFFFF";
 
    (function loop() {
       ctx.clearRect(x, 0, 60, 150);
