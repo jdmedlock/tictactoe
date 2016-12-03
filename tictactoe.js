@@ -30,17 +30,18 @@ $(document).ready(function() {
 // -------------------------------------------------------------
 
 // Initialization Logic invoked when the DOM is ready for execution
+// From a blog post at https://goo.gl/jD367a
 //
 // Returns: N/a
 function claimCell(charToPlace, canvasName) {
    console.log("Entered claimCell");
-   var ctx = $(canvasName).get(0).getContext("2d"),
-      dashLen = 220,
-      dashOffset = dashLen,
-      speed = 5,
-      txt = charToPlace,
-      x = 30,
-      i = 0;
+   var ctx = document.querySelector(canvasName).getContext("2d"),
+      var dashLen = 220;
+   var dashOffset = dashLen;
+   var speed = 5;
+   var txt = charToPlace;
+   var x = 30;
+   var i = 0;
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
    ctx.font = "32px arial, sans-serif";
