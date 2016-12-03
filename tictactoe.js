@@ -40,9 +40,8 @@ function claimCell(charToPlace, canvasName) {
    //var dashLen = 220;
    var dashLen = 60
    var dashOffset = dashLen;
-   var speed = 5;
+   var speed = 1;
    var txt = charToPlace;
-   //   var x = 30;
    var x = 10;
    var i = 0;
 
@@ -52,7 +51,6 @@ function claimCell(charToPlace, canvasName) {
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
    ctx.strokeStyle = ctx.fillStyle = "#FFFFFF";
-   //ctx.fillText(charToPlace, 10, 20); // fill final letter
 
    (function loop() {
       ctx.clearRect(x, 0, 60, 150);
