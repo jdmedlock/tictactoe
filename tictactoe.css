@@ -112,6 +112,11 @@ h4.pt-interval-message {
 /* ---------------------------------------------
    Game Results History
    --------------------------------------------- */
+
+.t3-game-results {
+   margin-top: 10px;   
+}
+
 .t3-results-tbl {
   margin-left: auto;
   margin-right: auto;
