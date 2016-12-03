@@ -23,6 +23,7 @@ h3 {
 }
 
 th {
+   color: white;
    text-align: center;
 }
 
@@ -124,7 +125,6 @@ th {
 }
 
 .t3-results-tbl.thead {
-   color: white;
   text-align: center;
 }
 
