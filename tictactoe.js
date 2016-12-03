@@ -18,6 +18,14 @@ $(document).ready(function() {
    $(".pt-btn-break-minus").click(function(event) {});
 
    claimCell("O", "#t3-canvas-1");
+   claimCell("X", "#t3-canvas-2");
+   claimCell("O", "#t3-canvas-3");
+   claimCell("X", "#t3-canvas-4");
+   claimCell("O", "#t3-canvas-5");
+   claimCell("X", "#t3-canvas-6");
+   claimCell("O", "#t3-canvas-7");
+   claimCell("X", "#t3-canvas-8");
+   claimCell("O", "#t3-canvas-9");
 });
 
 // -------------------------------------------------------------
