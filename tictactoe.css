@@ -78,7 +78,7 @@ h4.pt-interval-message {
 
 .t3-canvas {
   width: 50%;
-  height: auto;
+  height: 50%;
 }
 
 #t3-cell-1,
@@ -102,7 +102,7 @@ h4.pt-interval-message {
 #t3-cell-3,
 #t3-cell-6 {
   border-top-color: transparent;
-  border-left-color: white;
+  border-left-color: transparent;
   border-right-color: transparent;
   border-bottom-color: white;
   border-style: solid;
