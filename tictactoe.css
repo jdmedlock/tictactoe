@@ -76,6 +76,11 @@ h4.pt-interval-message {
   padding: 5px;
 }
 
+.t3-canvas {
+  width: 100%;
+  height: auto;
+}
+
 /* ---------------------------------------------
    Game Results History
    --------------------------------------------- */
