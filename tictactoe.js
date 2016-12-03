@@ -36,12 +36,12 @@ $(document).ready(function() {
 function claimCell(charToPlace, canvasName) {
    console.log("Entered claimCell");
    var ctx = document.querySelector(canvasName).getContext("2d");
-   ctx.font = "12px arial, sans-serif";
+   ctx.font = "16px arial, sans-serif";
    ctx.lineWidth = 5;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
    ctx.strokeStyle = ctx.fillStyle = "#FFFFFF";
-   ctx.fillText(charToPlace, 5, 20); // fill final letter
+   ctx.fillText(charToPlace, 10, 20); // fill final letter
 
    /*
    //var dashLen = 220;
