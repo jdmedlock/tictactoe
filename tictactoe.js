@@ -35,8 +35,8 @@ $(document).ready(function() {
 // Returns: N/a
 function claimCell(charToPlace, canvasName) {
    console.log("Entered claimCell");
-   var ctx = document.querySelector(canvasName).getContext("2d"),
-      var dashLen = 220;
+   var ctx = document.querySelector(canvasName).getContext("2d");
+   var dashLen = 220;
    var dashOffset = dashLen;
    var speed = 5;
    var txt = charToPlace;
