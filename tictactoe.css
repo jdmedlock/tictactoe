@@ -120,6 +120,8 @@ h3 {
 
 .t3-results-tbl.thead {
   background-color: #8B8E8F;
+  text-align: center;
+  width: 30%;
 }
 
 /* ---------------------------------------------
