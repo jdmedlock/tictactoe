@@ -41,7 +41,7 @@ function claimCell(charToPlace, canvasName) {
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
    ctx.strokeStyle = ctx.fillStyle = "#FFFFFF";
-   ctx.fillText(charToPlace, 5, 90); // fill final letter
+   ctx.fillText(charToPlace, 5, 20); // fill final letter
 
    /*
    //var dashLen = 220;
