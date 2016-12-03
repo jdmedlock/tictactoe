@@ -34,7 +34,8 @@ $(document).ready(function() {
 //
 // Returns: N/a
 function claimCell(charToPlace, canvasName) {
-   var ctx = $(canvasName)[0].getContext("2d"),
+   console.log("Entered claimCell");
+   var ctx = $(canvasName).get(0).getContext("2d"),
       dashLen = 220,
       dashOffset = dashLen,
       speed = 5,
