@@ -36,6 +36,9 @@ $(document).ready(function() {
 function claimCell(charToPlace, canvasName) {
    console.log("Entered claimCell");
    var ctx = document.querySelector(canvasName).getContext("2d");
+   ctx.fillText(charToPlace, 5, 5); // fill final letter
+
+   /*
    //var dashLen = 220;
    var dashLen = 60
    var dashOffset = dashLen;
@@ -68,4 +71,5 @@ function claimCell(charToPlace, canvasName) {
          if (i < txt.length) requestAnimationFrame(loop);
       }
    })();
+   */
 }
