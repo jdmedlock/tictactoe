@@ -47,7 +47,7 @@ function claimCell(charToPlace, canvasName) {
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
    ctx.font = "20px arial, sans-serif";
-   ctx.lineWidth = 5;
+   ctx.lineWidth = 2;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
    ctx.strokeStyle = ctx.fillStyle = "#FFFFFF";
