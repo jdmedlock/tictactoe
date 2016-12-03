@@ -17,7 +17,7 @@ $(document).ready(function() {
    // Create a button handler to decrement the break interval length
    $(".pt-btn-break-minus").click(function(event) {});
 
-   claimCell("X", "t3-board t3-canvas-1");
+   claimCell("X", "#t3-canvas-1");
 
 });
 
@@ -34,7 +34,7 @@ $(document).ready(function() {
 //
 // Returns: N/a
 function claimCell(charToPlace, canvasName) {
-   var ctx = $(canvasName).getContext("2d"),
+   var ctx = $(canvasName)[0].getContext("2d"),
       dashLen = 220,
       dashOffset = dashLen,
       speed = 5,
