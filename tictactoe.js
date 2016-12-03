@@ -18,7 +18,6 @@ $(document).ready(function() {
    $(".pt-btn-break-minus").click(function(event) {});
 
    claimCell("X", "#t3-canvas-1");
-
 });
 
 // -------------------------------------------------------------
@@ -43,11 +42,13 @@ function claimCell(charToPlace, canvasName) {
       x = 30,
       i = 0;
 
+   //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
    ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
    ctx.lineWidth = 5;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
-   ctx.strokeStyle = ctx.fillStyle = "#1f2f90";
+   //ctx.strokeStyle = ctx.fillStyle = "#1f2f90";
+   ctx.strokeStyle = ctx.fillStyle = "white";
 
    (function loop() {
       ctx.clearRect(x, 0, 60, 150);
