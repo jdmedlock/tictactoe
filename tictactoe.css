@@ -12,7 +12,7 @@ html {
 
 body {
   background-color: #505455;
-  color: #808D94;
+  color: #8B8E8F;
   margin-top: 0px;
   margin-bottom: 60px;
 }
@@ -78,9 +78,9 @@ h3.pt-page-title {
 #t3-cell-2,
 #t3-cell-5 {
   border-top-color: transparent;
-  border-left-color: #5D6D74;
-  border-right-color: #5D6D74;
-  border-bottom-color: #5D6D74;
+  border-left-color: #8B8E8F;
+  border-right-color: #8B8E8F;
+  border-bottom-color: #8B8E8F;
   border-style: solid;
 }
 
@@ -91,14 +91,14 @@ h3.pt-page-title {
   border-top-color: transparent;
   border-left-color: transparent;
   border-right-color: transparent;
-  border-bottom-color: #5D6D74;
+  border-bottom-color: #8B8E8F;
   border-style: solid;
 }
 
 #t3-cell-8 {
   border-top-color: transparent;
-  border-left-color: #5D6D74;
-  border-right-color: #5D6D74;
+  border-left-color: #8B8E8F;
+  border-right-color: #8B8E8F;
   border-bottom-color: transparent;
   border-style: solid;
 }
@@ -119,7 +119,7 @@ h3.pt-page-title {
 }
 
 .t3-results-tbl.thead {
-  background-color: #5D6D74;
+  background-color: #8B8E8F;
 }
 
 /* ---------------------------------------------
