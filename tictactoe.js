@@ -60,7 +60,7 @@ function claimCell(charToPlace, canvasName) {
    ctx.globalAlpha = 2 / 3;
    ctx.strokeStyle = ctx.fillStyle = "#FF584F";
    ctx.shadowBlur = 10;
-   ctx.shadowColor = "white";
+   ctx.shadowColor = "#FF584F";
 
    (function loop() {
       ctx.clearRect(x, 0, 18, 150);
