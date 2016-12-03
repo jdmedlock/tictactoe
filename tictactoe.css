@@ -109,6 +109,7 @@ h3 {
 
 .t3-game-results {
    margin-top: 10px;
+   text-align: center;
 }
 
 .t3-results-tbl {
@@ -120,6 +121,7 @@ h3 {
 
 .t3-results-tbl.thead {
   background-color: #8B8E8F;
+  text-align: center;
 }
 
 /* ---------------------------------------------
