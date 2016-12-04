@@ -16,7 +16,7 @@ $(document).ready(function() {
 
    // Create a button handler to decrement the break interval length
    $(".pt-btn-break-minus").click(function(event) {
-     console.log("Cell 1 clicked. value="+$(this).attr("value")));
+     console.log("Cell 1 clicked. value="+$(this).attr("value"));
      claimCell("O", "#t3-canvas-1");
    });
 
