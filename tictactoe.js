@@ -5,6 +5,15 @@
 // @flow
 
 // -------------------------------------------------------------
+// Global variables & constants
+// -------------------------------------------------------------
+
+var computerColor = "#FF00FF";
+var playerColor = "#E4FF00";
+
+animationRequests = [];
+
+// -------------------------------------------------------------
 // Initialization function(s)
 // -------------------------------------------------------------
 
@@ -34,43 +43,56 @@ $(document).ready(function() {
       $("#t3-results-dialog").css("display", "none");
    });
 
+   // Create a button handler to close the game results dialog
+   $(".t3-btn-clear").click(function(event) {
+      clearGameBoard();
+   });
 
    // Create click handlers for each cell in the game board
 
    $("#t3-canvas-1").click(function(event) {
-      placeGamePiece("O", "#t3-canvas-1");
+      animationRequests[0] = placeGamePiece("O", computerColor,
+         "#t3-canvas-1");
    });
 
    $("#t3-canvas-2").click(function(event) {
-      placeGamePiece("X", "#t3-canvas-2");
+      animationRequests[0] = placeGamePiece("X", playerColor,
+         "#t3-canvas-2");
    });
 
    $("#t3-canvas-3").click(function(event) {
-      placeGamePiece("O", "#t3-canvas-3");
+      animationRequests[0] = placeGamePiece("O", computerColor,
+         "#t3-canvas-3");
    });
 
    $("#t3-canvas-4").click(function(event) {
-      placeGamePiece("X", "#t3-canvas-4");
+      animationRequests[0] = placeGamePiece("X", playerColor,
+         "#t3-canvas-4");
    });
 
    $("#t3-canvas-5").click(function(event) {
-      placeGamePiece("O", "#t3-canvas-5");
+      animationRequests[0] = placeGamePiece("O", computerColor,
+         "#t3-canvas-5");
    });
 
    $("#t3-canvas-6").click(function(event) {
-      placeGamePiece("X", "#t3-canvas-6");
+      animationRequests[0] = placeGamePiece("X", playerColor,
+         "#t3-canvas-6");
    });
 
    $("#t3-canvas-7").click(function(event) {
-      placeGamePiece("O", "#t3-canvas-7");
+      animationRequests[0] = placeGamePiece("O", computerColor,
+         "#t3-canvas-7");
    });
 
    $("#t3-canvas-8").click(function(event) {
-      placeGamePiece("X", "#t3-canvas-8");
+      animationRequests[0] = placeGamePiece("X", playerColor,
+         "#t3-canvas-8");
    });
 
    $("#t3-canvas-9").click(function(event) {
-      placeGamePiece("O", "#t3-canvas-9");
+      animationRequests[8] = placeGamePiece("O", computerColor,
+         "#t3-canvas-9");
    });
 
 });
@@ -79,32 +101,37 @@ $(document).ready(function() {
 // User Interface functions
 // -------------------------------------------------------------
 
-
-// -------------------------------------------------------------
-// Game Logic functions
-// -------------------------------------------------------------
+// Clear all game pieces from the game board
+//
+// Returns: N/a
+function clearGameBoard() {
+   cancelAnimationFrame(animationRequests[8]);
+   var ctx = document.querySelector("#t3-canvas-9").getContext("2d");
+   ctx.clearRect(0, 0, 88, 88);
+}
 
 // Place a players piece on the game board
 // From a blog post at https://goo.gl/jD367a
 //
-// Returns: N/a
-function placeGamePiece(charToPlace, canvasName) {
+// Returns: An animation request ID
+function placeGamePiece(gamePiece, gamePieceColor, canvasName) {
    var ctx = document.querySelector(canvasName).getContext("2d");
 
    //var dashLen = 220;
    var dashLen = 10;
    var dashOffset = dashLen;
    var speed = 1;
-   var txt = charToPlace;
+   var txt = gamePiece;
    var x = 5;
    var i = 0;
+   var animationRequestID = 0;
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
    ctx.font = "84px arial, sans-serif";
    ctx.lineWidth = 2;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
-   ctx.strokeStyle = ctx.fillStyle = "#FF00FF";
+   ctx.strokeStyle = ctx.fillStyle = gamePieceColor;
 
    (function loop() {
       ctx.clearRect(x, 0, 0, 150);
@@ -113,7 +140,7 @@ function placeGamePiece(charToPlace, canvasName) {
       ctx.strokeText(txt[i], x, 84); // stroke letter
 
       if (dashOffset > 0) {
-         requestAnimationFrame(loop); // animate
+         animationRequestID = requestAnimationFrame(loop); // animate
       } else {
          ctx.fillText(txt[i], x, 84); // fill final letter
          dashOffset = dashLen; // prep next char
@@ -121,8 +148,13 @@ function placeGamePiece(charToPlace, canvasName) {
          ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
          ctx.rotate(Math.random() * 0.005); // random rotation
          if (i < txt.length) {
-            requestAnimationFrame(loop);
+            animationRequestID = requestAnimationFrame(loop);
          }
       }
    })();
+   return animationRequestID;
 }
+
+// -------------------------------------------------------------
+// Game Logic functions
+// -------------------------------------------------------------
