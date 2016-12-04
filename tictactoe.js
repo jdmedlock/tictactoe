@@ -24,7 +24,7 @@ $(document).ready(function() {
 
    $("#t3-canvas-1").click(function(event) {
      console.log("Cell 1 clicked. value="+$(this).attr("value"));
-     claimCell("O", ".t3-canvas-1");
+     claimCell("O", "#t3-canvas-1");
    });
 
    /*
