@@ -14,48 +14,63 @@
 $(document).ready(function() {
    console.clear();
 
-   // Create a button handler to decrement the break interval length
-   /*
-   t3-canvas-1.addEventListener('click', function() {
-     console.log("Cell 1 clicked. value="+$(this).attr("value"));
-     claimCell("O", ".t3-canvas-1");
-   }, false);
-   */
+   // Create a button handler for the help dialog
+   $(".t3-btn-help").click(function(event) {
+      $("#t3-help-dialog").css("display", "block");
+   });
+
+   // Create a button handler to close the help dialog
+   $(".t3-dialog-close").click(function(event) {
+      $("#t3-help-dialog").css("display", "none");
+   });
+
+   // Create a button handler for the game results dialog
+   $(".t3-btn-results").click(function(event) {
+      $("#t3-results-dialog").css("display", "block");
+   });
+
+   // Create a button handler to close the game results dialog
+   $(".t3-dialog-close").click(function(event) {
+      $("#t3-results-dialog").css("display", "none");
+   });
+
+
+   // Create click handlers for each cell in the game board
 
    $("#t3-canvas-1").click(function(event) {
-     claimCell("O", "#t3-canvas-1");
+      placeGamePiece("O", "#t3-canvas-1");
    });
 
    $("#t3-canvas-2").click(function(event) {
-     claimCell("X", "#t3-canvas-2");
+      placeGamePiece("X", "#t3-canvas-2");
    });
 
    $("#t3-canvas-3").click(function(event) {
-     claimCell("O", "#t3-canvas-3");
+      placeGamePiece("O", "#t3-canvas-3");
    });
 
    $("#t3-canvas-4").click(function(event) {
-     claimCell("X", "#t3-canvas-4");
+      placeGamePiece("X", "#t3-canvas-4");
    });
 
    $("#t3-canvas-5").click(function(event) {
-     claimCell("O", "#t3-canvas-5");
+      placeGamePiece("O", "#t3-canvas-5");
    });
 
    $("#t3-canvas-6").click(function(event) {
-     claimCell("X", "#t3-canvas-6");
+      placeGamePiece("X", "#t3-canvas-6");
    });
 
    $("#t3-canvas-7").click(function(event) {
-     claimCell("O", "#t3-canvas-7");
+      placeGamePiece("O", "#t3-canvas-7");
    });
 
    $("#t3-canvas-8").click(function(event) {
-     claimCell("X", "#t3-canvas-8");
+      placeGamePiece("X", "#t3-canvas-8");
    });
 
    $("#t3-canvas-9").click(function(event) {
-     claimCell("O", "#t3-canvas-9");
+      placeGamePiece("O", "#t3-canvas-9");
    });
 
 });
@@ -69,12 +84,11 @@ $(document).ready(function() {
 // Game Logic functions
 // -------------------------------------------------------------
 
-// Initialization Logic invoked when the DOM is ready for execution
+// Place a players piece on the game board
 // From a blog post at https://goo.gl/jD367a
 //
 // Returns: N/a
-function claimCell(charToPlace, canvasName) {
-   console.log("Entered claimCell");
+function placeGamePiece(charToPlace, canvasName) {
    var ctx = document.querySelector(canvasName).getContext("2d");
 
    //var dashLen = 220;

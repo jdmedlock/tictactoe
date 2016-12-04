@@ -30,29 +30,29 @@ th {
 /* ---------------------------------------------
    Common elements used throughout the page
    --------------------------------------------- */
-.pt-btn,
-.pt-btn:hover,
-.pt-btn:active,
-.pt-btn:visited,
-.pt-btn:focus {
+.t3-btn,
+.t3-btn:hover,
+.t3-btn:active,
+.t3-btn:visited,
+.t3-btn:focus {
   background-color: transparent;
   border-color: transparent;
   color: black;
 }
 
-.pt-btn-center {
+.t3-btn-center {
   margin-left: auto;
   margin-right: auto;
 }
 
-.pt-small-text {
+.t3-small-text {
  font-size: 90%;
 }
 
 /* ---------------------------------------------
    Page title
    --------------------------------------------- */
-.pt-jumbotron {
+.t3-jumbotron {
   background-color: #659599;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.50);
   color: #808D94;
@@ -109,11 +109,14 @@ th {
 }
 
 /* ---------------------------------------------
-   Game Results History
+   Modal Game Results dialog
    --------------------------------------------- */
 
 .t3-game-results {
    margin-top: 10px;
+   margin-left: auto;
+   margin-right: auto;
+   margin-bottom: 10px;
    text-align: center;
 }
 
@@ -129,13 +132,13 @@ th {
 }
 
 /* ---------------------------------------------
-   Help dialog
+   Modal Help dialog
    --------------------------------------------- */
-.pt-help-open {
+.t3-dialog-open {
   margin-top: 10px;
 }
 
-.pt-help-dialog {
+.t3-dialog-body {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -150,7 +153,7 @@ th {
 }
 
 /* Modal Content */
-.pt-help-content {
+.t3-dialog-content {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -160,15 +163,15 @@ th {
 }
 
 /* The Close Button */
-.pt-help-close {
+.t3-dialog-close {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.pt-help-close:hover,
-.pt-help-close:focus {
+.t3-dialog-close:hover,
+.t3-dialog-close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
@@ -177,7 +180,7 @@ th {
 /* ---------------------------------------------
    Page footer
    --------------------------------------------- */
-.pt-bottom-bar {
+.t3-bottom-bar {
   bottom: 0;
   background-color: #0A3C41;
   color: white;
@@ -188,7 +191,7 @@ th {
   width: 100%;
 }
 
-.pt-bottom-bar a {
+.t3-bottom-bar a {
   color: white;
   font-size: small;
   margin-left: 0px;
