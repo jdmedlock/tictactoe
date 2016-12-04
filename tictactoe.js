@@ -65,7 +65,7 @@ function claimCell(charToPlace, canvasName) {
    var i = 0;
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
-   ctx.font = "60px arial, sans-serif";
+   ctx.font = "84px arial, sans-serif";
    ctx.lineWidth = 2;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
@@ -75,12 +75,12 @@ function claimCell(charToPlace, canvasName) {
       ctx.clearRect(x, 0, 0, 150);
       ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
       dashOffset -= speed; // reduce dash length
-      ctx.strokeText(txt[i], x, 60); // stroke letter
+      ctx.strokeText(txt[i], x, 84); // stroke letter
 
       if (dashOffset > 0) {
          requestAnimationFrame(loop); // animate
       } else {
-         ctx.fillText(txt[i], x, 60); // fill final letter
+         ctx.fillText(txt[i], x, 84); // fill final letter
          dashOffset = dashLen; // prep next char
          x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
          ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
