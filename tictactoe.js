@@ -23,20 +23,41 @@ $(document).ready(function() {
    */
 
    $("#t3-canvas-1").click(function(event) {
-     console.log("Cell 1 clicked. value="+$(this).attr("value"));
      claimCell("O", "#t3-canvas-1");
    });
 
-   /*
-   claimCell("X", "#t3-canvas-2");
-   claimCell("O", "#t3-canvas-3");
-   claimCell("X", "#t3-canvas-4");
-   claimCell("O", "#t3-canvas-5");
-   claimCell("X", "#t3-canvas-6");
-   claimCell("O", "#t3-canvas-7");
-   claimCell("X", "#t3-canvas-8");
-   claimCell("O", "#t3-canvas-9");
-   */
+   $("#t3-canvas-2").click(function(event) {
+     claimCell("X", "#t3-canvas-2");
+   });
+
+   $("#t3-canvas-3").click(function(event) {
+     claimCell("O", "#t3-canvas-3");
+   });
+
+   $("#t3-canvas-4").click(function(event) {
+     claimCell("X", "#t3-canvas-4");
+   });
+
+   $("#t3-canvas-5").click(function(event) {
+     claimCell("O", "#t3-canvas-5");
+   });
+
+   $("#t3-canvas-6").click(function(event) {
+     claimCell("X", "#t3-canvas-6");
+   });
+
+   $("#t3-canvas-7").click(function(event) {
+     claimCell("O", "#t3-canvas-7");
+   });
+
+   $("#t3-canvas-8").click(function(event) {
+     claimCell("X", "#t3-canvas-8");
+   });
+
+   $("#t3-canvas-9").click(function(event) {
+     claimCell("O", "#t3-canvas-9");
+   });
+
 });
 
 // -------------------------------------------------------------
