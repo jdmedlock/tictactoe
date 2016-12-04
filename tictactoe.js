@@ -59,7 +59,7 @@ function claimCell(charToPlace, canvasName) {
    //var dashLen = 220;
    var dashLen = 10;
    var dashOffset = dashLen;
-   var speed = 30;
+   var speed = 20;
    var txt = charToPlace;
    var x = 5;
    var i = 0;
