@@ -28,140 +28,142 @@ URL: tttgame.surge.sh
     <!-- Main webpage body -->
     <div class="container-fluid">
 
-        <!----------------->
-        <!-- Page Banner -->
-        <!----------------->
-        <div class="jumbotron t3-jumbotron">
-            <h3 class="t3-page-title">Tic-Tac-Toe</h3>
-        </div>
+     <!----------------->
+     <!-- Page Banner -->
+     <!----------------->
+     <div class="jumbotron t3-jumbotron">
+         <h3 class="t3-page-title">Let's Play Tic-Tac-Toe!</h3>
+      </div> <!-- End of jumbotron -->
 
-        <!-------------------------->
-        <!-- Game Control buttons -->
-        <!-------------------------->
-        <div class="row text-right t3-bar-row">
-          <div class="col-xs-10 col-xs-offset-1 text-center">
-            <span>
-               <button class="btn btn-primary t3-btn t3-btn-help" title="Click to get help">?</button>
-            </span>
-            <span>
-               <button class="btn btn-primary p3-btn t3-btn-results" title="Click to show game results history">#</button>
-            </span>
-          </div>
-        </div>
+     <!-------------------------->
+     <!-- Game Control buttons -->
+     <!-------------------------->
+     <div class="row text-right t3-bar-row">
+       <div class="col-xs-2 col-xs-offset-5 text-center">
+         <span>
+            <button class="btn btn-primary t3-btn t3-btn-help" title="Click to get help">
+            <i class="fa fa-life-ring"></i></button>
+         </span>
+         <span>
+            <button class="btn btn-primary t3-btn t3-btn-results" title="Click to show game results history"><i class="fa fa-dashboard"></i></button>
+         </span>
+       </div>
+     </div>
 
-        <!----------------------->
-        <!-- Tic-Tac-Toe Board -->
-        <!----------------------->
-        <div class="t3-board">
-            <!-- Game Board Row 1 -->
-            <div class="row text-right t3-bar-row">
-                <div class="col-xs-2 col-xs-offset-3 text-center t3-board-cell" id="t3-cell-1">
-                    <canvas class="t3-canvas" id="t3-canvas-1" width="88" height="88">
-              Sorry, your browser doesn't support the &lt;canvas&gt; element.
-            </canvas>
-                </div>
-                <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-2">
-                    <canvas class="t3-canvas" id="t3-canvas-2" width="88" height="88">
-            Sorry, your browser doesn't support the &lt;canvas&gt; element.
-          </canvas>
-                </div>
-                <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-3">
-                    <canvas class="t3-canvas" id="t3-canvas-3" width="88" height="88">
-            Sorry, your browser doesn't support the &lt;canvas&gt; element.
-          </canvas>
-                </div>
-            </div>
-            <!-- Game Board Row 2 -->
-            <div class="row text-right t3-bar-row">
-                <div class="col-xs-2 col-xs-offset-3 text-center t3-board-cell" id="t3-cell-4">
-                    <canvas class="t3-canvas" id="t3-canvas-4" width="88" height="88">
-            Sorry, your browser doesn't support the &lt;canvas&gt; element.
-          </canvas>
-                </div>
-                <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-5">
-                    <canvas class="t3-canvas" id="t3-canvas-5" width="88" height="88">
-            Sorry, your browser doesn't support the &lt;canvas&gt; element.
-          </canvas>
-                </div>
-                <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-6">
-                    <canvas class="t3-canvas" id="t3-canvas-6" width="88" height="88">
-            Sorry, your browser doesn't support the &lt;canvas&gt; element.
-          </canvas>
-                </div>
-            </div>
-            <!-- Game Board Row 3 -->
-            <div class="row text-right t3-bar-row">
-                <div class="col-xs-2 col-xs-offset-3 text-center t3-board-cell" id="t3-cell-7">
-                    <canvas class="t3-canvas" id="t3-canvas-7" width="88" height="88">
-            Sorry, your browser doesn't support the &lt;canvas&gt; element.
-          </canvas>
-                </div>
-                <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-8">
-                    <canvas class="t3-canvas" id="t3-canvas-8" width="88" height="88">
-            Sorry, your browser doesn't support the &lt;canvas&gt; element.
-          </canvas>
-                </div>
-                <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-9">
-                    <canvas class="t3-canvas" id="t3-canvas-9" width="88" height="88">
-            Sorry, your browser doesn't support the &lt;canvas&gt; element.
-          </canvas>
-                </div>
-            </div>
-        </div>
-        <!-- end t3-board -->
 
-        <!--------------------------------------->
-        <!-- Modal Game Results History Dialog -->
-        <!--------------------------------------->
-        <div class="t3-dialog-body" id="t3-results-dialog">
-           <div class="t3-dialog-content">
-               <span class="t3-dialog-close">×</span>
-               <div class="table-responsive text-center t3-game-results">
-                   <h3>Game Results History</h3>
-                   <table class="table-bordered table-striped t3-results-tbl">
-                       <tbody>
-                           <thead>
-                              <tr>
-                                 <th>Game #</th>
-                                 <th>Computer</th>
-                                 <th>You</th>
-                              </tr>
-                           </thead>
+     <!----------------------->
+     <!-- Tic-Tac-Toe Board -->
+     <!----------------------->
+     <div class="t3-game-board">
+         <!-- Game Board Row 1 -->
+         <div class="row text-right t3-bar-row">
+             <div class="col-xs-2 col-xs-offset-3 text-center t3-board-cell" id="t3-cell-1">
+                 <canvas class="t3-canvas" id="t3-canvas-1" width="88" height="88">
+           Sorry, your browser doesn't support the &lt;canvas&gt; element.
+         </canvas>
+             </div>
+             <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-2">
+                 <canvas class="t3-canvas" id="t3-canvas-2" width="88" height="88">
+         Sorry, your browser doesn't support the &lt;canvas&gt; element.
+       </canvas>
+             </div>
+             <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-3">
+                 <canvas class="t3-canvas" id="t3-canvas-3" width="88" height="88">
+         Sorry, your browser doesn't support the &lt;canvas&gt; element.
+       </canvas>
+             </div>
+         </div>
+         <!-- Game Board Row 2 -->
+         <div class="row text-right t3-bar-row">
+             <div class="col-xs-2 col-xs-offset-3 text-center t3-board-cell" id="t3-cell-4">
+                 <canvas class="t3-canvas" id="t3-canvas-4" width="88" height="88">
+         Sorry, your browser doesn't support the &lt;canvas&gt; element.
+       </canvas>
+             </div>
+             <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-5">
+                 <canvas class="t3-canvas" id="t3-canvas-5" width="88" height="88">
+         Sorry, your browser doesn't support the &lt;canvas&gt; element.
+       </canvas>
+             </div>
+             <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-6">
+                 <canvas class="t3-canvas" id="t3-canvas-6" width="88" height="88">
+         Sorry, your browser doesn't support the &lt;canvas&gt; element.
+       </canvas>
+             </div>
+         </div>
+         <!-- Game Board Row 3 -->
+         <div class="row text-right t3-bar-row">
+             <div class="col-xs-2 col-xs-offset-3 text-center t3-board-cell" id="t3-cell-7">
+                 <canvas class="t3-canvas" id="t3-canvas-7" width="88" height="88">
+         Sorry, your browser doesn't support the &lt;canvas&gt; element.
+       </canvas>
+             </div>
+             <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-8">
+                 <canvas class="t3-canvas" id="t3-canvas-8" width="88" height="88">
+         Sorry, your browser doesn't support the &lt;canvas&gt; element.
+       </canvas>
+             </div>
+             <div class="col-xs-2 text-center t3-board-cell" id="t3-cell-9">
+                 <canvas class="t3-canvas" id="t3-canvas-9" width="88" height="88">
+         Sorry, your browser doesn't support the &lt;canvas&gt; element.
+       </canvas>
+             </div>
+         </div>
+     </div>
+     <!-- end t3-board -->
+
+     <!--------------------------------------->
+     <!-- Modal Game Results History Dialog -->
+     <!--------------------------------------->
+     <div class="t3-dialog-body" id="t3-results-dialog">
+        <div class="t3-dialog-content">
+            <span class="t3-dialog-close">×</span>
+            <div class="table-responsive text-center t3-game-results">
+                <h3>Game Results History</h3>
+                <table class="table-bordered table-striped t3-results-tbl">
+                    <tbody>
+                        <thead>
                            <tr>
-                               <td>1</td>
-                               <td>Win</td>
-                               <td>Loss</td>
+                              <th>Game #</th>
+                              <th>Computer</th>
+                              <th>You</th>
                            </tr>
-                           <tr>
-                               <td>2</td>
-                               <td>Loss</td>
-                               <td>Win</td>
-                           </tr>
-                           <tr>
-                               <td>3</td>
-                               <td>Draw</td>
-                               <td>Draw</td>
-                           </tr>
-                       </tbody>
-                   </table>
-               </div> <!-- end of t3-game-results -->
-            </div>    <!-- end of t3-results-content -->
-        </div>        <!-- end of t3-results-dialog -->
+                        </thead>
+                        <tr>
+                            <td>1</td>
+                            <td>Win</td>
+                            <td>Loss</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Loss</td>
+                            <td>Win</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Draw</td>
+                            <td>Draw</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> <!-- end of t3-game-results -->
+         </div>    <!-- end of t3-results-content -->
+     </div>        <!-- end of t3-results-dialog -->
 
-        <!-------------------------------->
-        <!-- Modal Help Dialog          -->
-        <!-------------------------------->
-        <div class="t3-dialog-body" id="t3-help-dialog">
-            <div class="t3-dialog-content">
-                <span class="t3-dialog-close">×</span>
-                <p>Tic-Tac-Toe Game Instructions:
-                    <ul>
-                        <li>Click on any open cell in the game board to place your game piece.</li>
-                        <li>Click on the Scores button to see the results of all game play.</li>
-                    </ul>
-                </p>
-            </div>
-        </div> <!-- End of Modal Help Dialog -->
+     <!-------------------------------->
+     <!-- Modal Help Dialog          -->
+     <!-------------------------------->
+     <div class="t3-dialog-body" id="t3-help-dialog">
+         <div class="t3-dialog-content">
+             <span class="t3-dialog-close">×</span>
+             <p>Tic-Tac-Toe Game Instructions:
+                 <ul>
+                     <li>Click on any open cell in the game board to place your game piece.</li>
+                     <li>Click on the Scores button to see the results of all game play.</li>
+                 </ul>
+             </p>
+         </div>
+     </div> <!-- End of Modal Help Dialog -->
 
     </div> <!-- end container -->
 

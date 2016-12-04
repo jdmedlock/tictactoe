@@ -30,14 +30,20 @@ th {
 /* ---------------------------------------------
    Common elements used throughout the page
    --------------------------------------------- */
+.t3-bar-row {
+   margin-top: 10px;
+}
+
 .t3-btn,
 .t3-btn:hover,
 .t3-btn:active,
 .t3-btn:visited,
 .t3-btn:focus {
-  background-color: transparent;
-  border-color: transparent;
-  color: black;
+  background-color: #CDE0E2;
+  border-color: black;
+  color: #225F65;
+  font-size: large;
+  margin-right: 10px;
 }
 
 .t3-btn-center {
@@ -62,14 +68,18 @@ th {
   margin-left: auto;
   margin-right: auto;
   padding-left: 20px;
-  padding-top: 1px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   text-align: center;
 }
 
 /* ---------------------------------------------
    Game Board
    --------------------------------------------- */
+.t3-game-board {
+   margin-bottom: 10px;
+}
+
 .t3-board-cell {
   margin-top:5px;
   padding: 5px;
@@ -121,6 +131,7 @@ th {
 }
 
 .t3-results-tbl {
+   color: black;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
