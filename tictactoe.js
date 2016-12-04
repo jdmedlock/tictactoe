@@ -61,12 +61,12 @@ function claimCell(charToPlace, canvasName) {
    var dashOffset = dashLen;
    var speed = 30;
    var txt = charToPlace;
-   var x = 25;
+   var x = 40;
    var i = 0;
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
    ctx.font = "60px arial, sans-serif";
-   ctx.lineWidth = 2;
+   ctx.lineWidth = 20;
    ctx.lineJoin = "round";
    ctx.globalAlpha = 2 / 3;
    ctx.strokeStyle = ctx.fillStyle = "#FF00FF";
