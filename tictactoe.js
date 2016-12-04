@@ -61,7 +61,7 @@ function claimCell(charToPlace, canvasName) {
    var dashOffset = dashLen;
    var speed = 30;
    var txt = charToPlace;
-   var x = 40;
+   var x = 5;
    var i = 0;
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
