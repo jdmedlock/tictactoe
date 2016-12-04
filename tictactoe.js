@@ -15,9 +15,12 @@ $(document).ready(function() {
    console.clear();
 
    // Create a button handler to decrement the break interval length
-   $(".pt-btn-break-minus").click(function(event) {});
+   $(".pt-btn-break-minus").click(function(event) {
+     console.log("Cell 1 clicked. value="+$(this).attr("value")));
+     claimCell("O", "#t3-canvas-1");
+   });
 
-   claimCell("O", "#t3-canvas-1");
+   /*
    claimCell("X", "#t3-canvas-2");
    claimCell("O", "#t3-canvas-3");
    claimCell("X", "#t3-canvas-4");
@@ -26,6 +29,7 @@ $(document).ready(function() {
    claimCell("O", "#t3-canvas-7");
    claimCell("X", "#t3-canvas-8");
    claimCell("O", "#t3-canvas-9");
+   */
 });
 
 // -------------------------------------------------------------
