@@ -166,11 +166,16 @@ th {
 /* Modal Content */
 .t3-dialog-content {
   background-color: #fefefe;
+  color: black;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   text-align: left;
   width: 80%;
+}
+
+.t3-dialog-content > h3 {
+  color: black;
 }
 
 /* The Close Button */

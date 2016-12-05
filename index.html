@@ -42,13 +42,11 @@ URL: tttgame.surge.sh
        <div class="col-xs-2 col-xs-offset-5 text-center">
          <span>
             <button class="btn btn-primary t3-btn t3-btn-help" title="Click to get help">
-            <i class="fa fa-life-ring"></i></button>
+              <i class="fa fa-life-ring"></i></button>
          </span>
          <span>
-            <button class="btn btn-primary t3-btn t3-btn-results" title="Click to show game results history"><i class="fa fa-dashboard"></i></button>
-         </span>
-         <span>
-            <button class="btn btn-primary t3-btn t3-btn-clear"><i class="fa fa-dashboard"></i></button>
+            <button class="btn btn-primary t3-btn t3-btn-results" title="Click to show game results history">
+              <i class="fa fa-dashboard"></i></button>
          </span>
        </div>
      </div>
@@ -115,6 +113,43 @@ URL: tttgame.surge.sh
      </div>
      <!-- end t3-board -->
 
+     <!---------------------------------->
+     <!-- Modal Player Greeting Dialog -->
+     <!---------------------------------->
+     <div class="t3-dialog-body" id="t3-greeting-dialog">
+        <div class="t3-dialog-content">
+          <h3>Welcome to your Tic-Tac-Toe Game</h3>
+          <p>Choose the game piece you would like to use.</p>
+          <div class="gamePieceRadio">
+            <form id="gamepieceForm">
+              <div class="t3-radio-btn">
+              <label>
+                <input type="radio" name="gamepiece" id="selectX" value="Yes"> X</label>
+              </div>
+              <div class="t3-radio-btn">
+              <label>
+                <input type="radio" name="gamepiece" id="selectO" value="No"> O</label>
+              </div>
+          </form>
+        </div>
+      </div>
+     </div> <!-- End of Modal Help Dialog -->
+
+     <!-------------------------------->
+     <!-- Modal Help Dialog          -->
+     <!-------------------------------->
+     <div class="t3-dialog-body" id="t3-help-dialog">
+        <div class="t3-dialog-content">
+            <span class="t3-dialog-close">×</span>
+            <p>Tic-Tac-Toe Game Instructions:
+                <ul>
+                    <li>Click on any open cell in the game board to place your game piece.</li>
+                    <li>Click on the Scores button to see the results of all game play.</li>
+                </ul>
+            </p>
+        </div>
+     </div> <!-- End of Modal Help Dialog -->
+
      <!--------------------------------------->
      <!-- Modal Game Results History Dialog -->
      <!--------------------------------------->
@@ -152,21 +187,6 @@ URL: tttgame.surge.sh
             </div> <!-- end of t3-game-results -->
          </div>    <!-- end of t3-results-content -->
      </div>        <!-- end of t3-results-dialog -->
-
-     <!-------------------------------->
-     <!-- Modal Help Dialog          -->
-     <!-------------------------------->
-     <div class="t3-dialog-body" id="t3-help-dialog">
-         <div class="t3-dialog-content">
-             <span class="t3-dialog-close">×</span>
-             <p>Tic-Tac-Toe Game Instructions:
-                 <ul>
-                     <li>Click on any open cell in the game board to place your game piece.</li>
-                     <li>Click on the Scores button to see the results of all game play.</li>
-                 </ul>
-             </p>
-         </div>
-     </div> <!-- End of Modal Help Dialog -->
 
     </div> <!-- end container -->
 

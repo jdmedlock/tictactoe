@@ -11,7 +11,9 @@
 var computerColor = "#FF00FF";
 var playerColor = "#E4FF00";
 
-animationRequests = [];
+var animationRequests = [];
+var playerGamePiece = "X";
+var computerGamePiece = "O";
 
 // -------------------------------------------------------------
 // Initialization function(s)
@@ -43,11 +45,6 @@ $(document).ready(function() {
       $("#t3-results-dialog").css("display", "none");
    });
 
-   // Create a button handler to close the game results dialog
-   $(".t3-btn-clear").click(function(event) {
-      clearGameBoard();
-   });
-
    // Create click handlers for each cell in the game board
 
    $("#t3-canvas-1").click(function(event) {
@@ -56,37 +53,37 @@ $(document).ready(function() {
    });
 
    $("#t3-canvas-2").click(function(event) {
-      animationRequests[0] = placeGamePiece("X", playerColor,
+      animationRequests[1] = placeGamePiece("X", playerColor,
          "#t3-canvas-2");
    });
 
    $("#t3-canvas-3").click(function(event) {
-      animationRequests[0] = placeGamePiece("O", computerColor,
+      animationRequests[2] = placeGamePiece("O", computerColor,
          "#t3-canvas-3");
    });
 
    $("#t3-canvas-4").click(function(event) {
-      animationRequests[0] = placeGamePiece("X", playerColor,
+      animationRequests[3] = placeGamePiece("X", playerColor,
          "#t3-canvas-4");
    });
 
    $("#t3-canvas-5").click(function(event) {
-      animationRequests[0] = placeGamePiece("O", computerColor,
+      animationRequests[4] = placeGamePiece("O", computerColor,
          "#t3-canvas-5");
    });
 
    $("#t3-canvas-6").click(function(event) {
-      animationRequests[0] = placeGamePiece("X", playerColor,
+      animationRequests[5] = placeGamePiece("X", playerColor,
          "#t3-canvas-6");
    });
 
    $("#t3-canvas-7").click(function(event) {
-      animationRequests[0] = placeGamePiece("O", computerColor,
+      animationRequests[6] = placeGamePiece("O", computerColor,
          "#t3-canvas-7");
    });
 
    $("#t3-canvas-8").click(function(event) {
-      animationRequests[0] = placeGamePiece("X", playerColor,
+      animationRequests[7] = placeGamePiece("X", playerColor,
          "#t3-canvas-8");
    });
 
@@ -94,6 +91,16 @@ $(document).ready(function() {
       animationRequests[8] = placeGamePiece("O", computerColor,
          "#t3-canvas-9");
    });
+
+   // Create a change handler for the game piece radio button
+   $('#gamepieceForm input').on('change', function() {
+      playerGamePiece = $('input[name="gamepiece"]:checked', '#gamepieceForm').val());
+      computerGamePiece = (playerGamePiece === "X") ? "O" : "X";
+      $("#t3-greeting-dialog-dialog").css("display", "none");
+   });
+
+   // Prompt the user to choose a game piece
+   $("#t3-greeting-dialog").css("display", "block");
 
 });
 
