@@ -4,16 +4,44 @@
 // Programmer: Jim Medlock
 // @flow
 
+// Tic-Tac-Toe Strategy from https://en.wikipedia.org/wiki/Tic-tac-toe#Strategy
+// --------------------
+// 1. Win: If the player has two in a row, they can place a third to get three in a row.
+// 2. Block: If the opponent has two in a row, the player must play the third
+//    themselves to block the opponent.
+// 3. Fork: Create an opportunity where the player has two threats to win (two
+//    non-blocked lines of 2).
+// 4. Blocking an opponent's fork:
+//      - Option 1: The player should create two in a row to force the opponent
+//        into defending, as long as it doesn't result in them creating a fork.
+//        For example, if "X" has a corner, "O" has the center, and "X" has the
+//        opposite corner as well, "O" must not play a corner in order to win.
+//        (Playing a corner in this scenario creates a fork for "X" to win.)
+//      - Option 2: If there is a configuration where the opponent can fork,
+//        the player should block that fork.
+// 5. Center: A player marks the center. (If it is the first move of the game,
+//    playing on a corner gives "O" more opportunities to make a mistake and
+//    may therefore be the better choice; however, it makes no difference
+//    between perfect players.)
+// 6. Opposite corner: If the opponent is in the corner, the player plays the
+//    opposite corner.
+// 7. Empty corner: The player plays in a corner square.
+// 8. Empty side: The player plays in a middle square on any of the 4 sides.
+//
+// Pseudo-code
+// -----------
+
+use 'strict';
 // -------------------------------------------------------------
 // Global variables & constants
 // -------------------------------------------------------------
 
-var computerColor = "#FF00FF";
-var playerColor = "#E4FF00";
+const computerColor = "#FF00FF";
+const playerColor = "#E4FF00";
 
-var animationRequests = [];
-var playerGamePiece = "";
-var computerGamePiece = "";
+let animationRequests = [];
+let playerGamePiece = "";
+let computerGamePiece = "";
 
 // -------------------------------------------------------------
 // Initialization function(s)
@@ -47,8 +75,8 @@ $(document).ready(function() {
 
    // Create a click handler for the cells of the game board
    $(".t3-board-cell").click(function(event) {
-     var cellId = $(this).attr("id");
-     var cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-1) : 0;
+     let cellId = $(this).attr("id");
+     let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-1) : 0;
      animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
          "#t3-canvas-"+cellNo);
    });
@@ -74,7 +102,7 @@ $(document).ready(function() {
 // Returns: N/a
 function clearGameBoard() {
    cancelAnimationFrame(animationRequests[8]);
-   var ctx = document.querySelector("#t3-canvas-9").getContext("2d");
+   let ctx = document.querySelector("#t3-canvas-9").getContext("2d");
    ctx.clearRect(0, 0, 88, 88);
 }
 
@@ -86,13 +114,13 @@ function placeGamePiece(gamePiece, gamePieceColor, canvasName) {
    var ctx = document.querySelector(canvasName).getContext("2d");
 
    //var dashLen = 220;
-   var dashLen = 10;
-   var dashOffset = dashLen;
-   var speed = 1;
-   var txt = gamePiece;
-   var x = 5;
-   var i = 0;
-   var animationRequestID = 0;
+   let dashLen = 10;
+   let dashOffset = dashLen;
+   let speed = 1;
+   let txt = gamePiece;
+   let x = 5;
+   let i = 0;
+   let animationRequestID = 0;
 
    //ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
    ctx.font = "84px arial, sans-serif";
