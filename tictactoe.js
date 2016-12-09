@@ -4,32 +4,6 @@
 // Programmer: Jim Medlock
 // @flow
 
-// Tic-Tac-Toe Strategy from https://en.wikipedia.org/wiki/Tic-tac-toe#Strategy
-// --------------------
-// 1. Turns: Players alternate going first from game-to-game.
-// 2. Win: If the player has two in a row, they can place a third to get three in a row.
-// 3. Block: If the opponent has two in a row, the player must play the third
-//    themselves to block the opponent.
-// 4. Fork: Create an opportunity where the player has two threats to win (two
-//    non-blocked lines of 2).
-// 5. Blocking an opponent's fork:
-//      - Option 1: The player should create two in a row to force the opponent
-//        into defending, as long as it doesn't result in them creating a fork.
-//        For example, if "X" has a corner, "O" has the center, and "X" has the
-//        opposite corner as well, "O" must not play a corner in order to win.
-//        (Playing a corner in this scenario creates a fork for "X" to win.)
-//      - Option 2: If there is a configuration where the opponent can fork,
-//        the player should block that fork.
-// 6. Center: A player marks the center. (If it is the first move of the game,
-//    playing on a corner gives "O" more opportunities to make a mistake and
-//    may therefore be the better choice; however, it makes no difference
-//    between perfect players.)
-// 7. Opposite corner: If the opponent is in the corner, the player plays the
-//    opposite corner.
-// 8. Empty corner: The player plays in a corner square.
-// 9. Empty side: The player plays in a middle square on any of the 4 sides.
-//
-
 use 'strict';
 // -------------------------------------------------------------
 // Global variables & constants
@@ -153,3 +127,154 @@ function placeGamePiece(gamePiece, gamePieceColor, canvasName) {
 // -------------------------------------------------------------
 // Game Logic functions
 // -------------------------------------------------------------
+var board = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null]
+]
+
+var myMove = false;
+
+function getWinner(board) {
+
+    // Check if someone won
+    vals = [true, false];
+    var allNotNull = true;
+    for (var k = 0; k < vals.length; k++) {
+        var value = vals[k];
+
+        // Check rows, columns, and diagonals
+        var diagonalComplete1 = true;
+        var diagonalComplete2 = true;
+        for (var i = 0; i < 3; i++) {
+            if (board[i][i] != value) {
+                diagonalComplete1 = false;
+            }
+            if (board[2 - i][i] != value) {
+                diagonalComplete2 = false;
+            }
+            var rowComplete = true;
+            var colComplete = true;
+            for (var j = 0; j < 3; j++) {
+                if (board[i][j] != value) {
+                    rowComplete = false;
+                }
+                if (board[j][i] != value) {
+                    colComplete = false;
+                }
+                if (board[i][j] == null) {
+                    allNotNull = false;
+                }
+            }
+            if (rowComplete || colComplete) {
+                return value ? 1 : 0;
+            }
+        }
+        if (diagonalComplete1 || diagonalComplete2) {
+            return value ? 1 : 0;
+        }
+    }
+    if (allNotNull) {
+        return -1;
+    }
+    return null;
+}
+
+function restartGame() {
+    board = [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+    ];
+    myMove = false;
+    updateMove();
+}
+
+function updateMove() {
+    updateButtons();
+    var winner = getWinner(board);
+    $("#winner").text(winner == 1 ? "AI Won!" : winner == 0 ? "You Won!" : winner == -1 ? "Tie!" : "");
+    $("#move").text(myMove ? "AI's Move" : "Your move");
+}
+
+function updateButtons() {
+    for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 3; j++) {
+            $("#c" + i + "" + j).text(board[i][j] == false ? "x" : board[i][j] == true ? "o" : "");
+        }
+    }
+}
+
+var numNodes = 0;
+
+function recurseMinimax(board, player) {
+    numNodes++;
+    var winner = getWinner(board);
+    if (winner != null) {
+        switch(winner) {
+            case 1:
+                // AI wins
+                return [1, board]
+            case 0:
+                // opponent wins
+                return [-1, board]
+            case -1:
+                // Tie
+                return [0, board];
+        }
+    } else {
+        // Next states
+        var nextVal = null;
+        var nextBoard = null;
+
+        for (var i = 0; i < 3; i++) {
+            for (var j = 0; j < 3; j++) {
+                if (board[i][j] == null) {
+                    board[i][j] = player;
+                    var value = recurseMinimax(board, !player)[0];
+                    if ((player && (nextVal == null || value > nextVal)) || (!player && (nextVal == null || value < nextVal))) {
+                        nextBoard = board.map(function(arr) {
+                            return arr.slice();
+                        });
+                        nextVal = value;
+                    }
+                    board[i][j] = null;
+                }
+            }
+        }
+        return [nextVal, nextBoard];
+    }
+}
+
+function makeMove() {
+    board = minimaxMove(board);
+    console.log(numNodes);
+    myMove = false;
+    updateMove();
+}
+
+function minimaxMove(board) {
+    numNodes = 0;
+    return recurseMinimax(board, true)[1];
+}
+
+if (myMove) {
+    makeMove();
+}
+
+$(document).ready(function() {
+    $("button").click(function() {
+        var cell = $(this).attr("id")
+        var row = parseInt(cell[1])
+        var col = parseInt(cell[2])
+        if (!myMove) {
+            board[row][col] = false;
+            myMove = true;
+            updateMove();
+            makeMove();
+        }
+    });
+    $("#restart").click(restartGame);
+});
+
+updateMove();
