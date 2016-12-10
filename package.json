@@ -1,0 +1,28 @@
+{
+   "name": "tictactoe",
+   "version": "1.0.0",
+   "description": "Tic-Tac-Toe freeCodeCamp Challenge",
+   "main": "index.html",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/jdmedlock/tictactoe.git"
+   },
+   "author": "Jim Medlock",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/jdmedlock/tictactoe/issues"
+   },
+   "homepage": "https://github.com/jdmedlock/tictactoe#readme",
+   "devDependencies": {
+      "git-scripts": "^0.2.1",
+      "surge": "^0.18.0"
+   },
+   "git": {
+      "scripts": {
+         "pre-push": "surge --project ./ --domain tttgame.surge.sh"
+      }
+   }
+}
