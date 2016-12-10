@@ -14,15 +14,28 @@
 
 const computerColor = "#FF00FF";
 const playerColor = "#E4FF00";
+const cellMap = {
+   1: [0, 0],
+   2: [0, 1],
+   3: [0, 2],
+   4: [1, 0],
+   5: [1, 1],
+   6: [1, 2],
+   7: [2, 0],
+   8: [2, 1],
+   9: [2, 2]
+};
+
 
 let animationRequests = [];
 let playerGamePiece = "";
 let computerGamePiece = "";
 
-let board = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
+// Game engine game board
+let geBoard = [
+   [null, null, null],
+   [null, null, null],
+   [null, null, null]
 ]
 
 let myMove = false;
@@ -55,7 +68,7 @@ $(document).ready(function() {
 
    // Create a button handler for the new game request
    $(".t3-btn-newgame").click(function(event) {
-     clearGameBoard();
+      clearGameBoard();
    });
 
    // Create a button handler to close the game results dialog
@@ -65,27 +78,29 @@ $(document).ready(function() {
 
    // Create a click handler for the cells of the game board
    $(".t3-board-cell").click(function(event) {
-     let cellId = $(this).attr("id");
-     let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-1) : 0;
+      let cellId = $(this).attr("id");
+      let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-
+         1) : 0;
 
-     let cell = $(this).attr("id")
-     let row = parseInt(cell[1])
-     let col = parseInt(cell[2])
-     if (!myMove) {
-         board[row][col] = false;
+      let row = cellToRowCol(cellNo)[0];
+      let col = cellToRowCol(cellNo)[1];
+      if (!myMove) {
+         geBoard[row][col] = false;
          myMove = true;
          updateMove();
          makeMove();
-     }
-/*
-     animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
-         "#t3-canvas-"+cellNo);
-*/
+      }
+      /*
+           animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
+               "#t3-canvas-"+cellNo);
+      */
    });
 
    // Create a change handler for the game piece radio button
    $('#t3-gamepiece-form input').on('change', function() {
-      playerGamePiece = $('input[name="t3-radio-gamepiece"]:checked', '#t3-gamepiece-form').val();
+      playerGamePiece = $(
+         'input[name="t3-radio-gamepiece"]:checked',
+         '#t3-gamepiece-form').val();
       computerGamePiece = (playerGamePiece === "X") ? "O" : "X";
       $("#t3-greeting-dialog").css("display", "none");
    });
@@ -94,7 +109,7 @@ $(document).ready(function() {
    $("#t3-greeting-dialog").css("display", "block");
 
    if (myMove) {
-       makeMove();
+      makeMove();
    }
 
    updateMove();
@@ -113,10 +128,10 @@ function clearGameBoard() {
    cancelAnimationFrame(animationRequests[8]);
    let ctx = document.querySelector("#t3-canvas-9").getContext("2d");
    ctx.clearRect(0, 0, 88, 88);
-   board = [
-       [null, null, null],
-       [null, null, null],
-       [null, null, null]
+   geBoard = [
+      [null, null, null],
+      [null, null, null],
+      [null, null, null]
    ];
    myMove = false;
    updateMove();
@@ -167,6 +182,26 @@ function placeGamePiece(gamePiece, gamePieceColor, canvasName) {
    return animationRequestID;
 }
 
+// Given a cell number from the game board in the UI, return the
+// equivalent row and column number in the internal game board
+// manipulated by the game engine.
+//
+// Returns: An array of two cells
+//    - cellToRowCol(cellNo)[0] = row number
+//    - cellToRowCol(cellNo)[1] = cell number
+function cellToRowCol(cellNo) {
+   return cellMap[cellNo];
+}
+
+// Given a row and column number in the internal game board, return
+// the equivalent cell number in the UI game board.
+//
+// Returns: A cell number in the UI game board
+function rowColToCell(row, col) {
+   return cellMap.find = (element, index, array) =>
+      (element[0] === row && element[1] === col);
+}
+
 // -------------------------------------------------------------
 // Game Logic functions
 // -------------------------------------------------------------
@@ -179,72 +214,74 @@ function placeGamePiece(gamePiece, gamePieceColor, canvasName) {
 //   +1: Game won by computer
 function getWinner(board) {
 
-    // Check if someone won
-    const vals = [true, false];
-    let allNotNull = true;
-    for (let k = 0; k < vals.length; k++) {
-        let value = vals[k];
+   // Check if someone won
+   const vals = [true, false];
+   let allNotNull = true;
+   for (let k = 0; k < vals.length; k++) {
+      let value = vals[k];
 
-        // Check rows, columns, and diagonals
-        let diagonalComplete1 = true;
-        let diagonalComplete2 = true;
-        for (let i = 0; i < 3; i++) {
-            if (board[i][i] != value) {
-                diagonalComplete1 = false;
+      // Check rows, columns, and diagonals
+      let diagonalComplete1 = true;
+      let diagonalComplete2 = true;
+      for (let i = 0; i < 3; i++) {
+         if (board[i][i] != value) {
+            diagonalComplete1 = false;
+         }
+         if (board[2 - i][i] != value) {
+            diagonalComplete2 = false;
+         }
+         let rowComplete = true;
+         let colComplete = true;
+         for (var j = 0; j < 3; j++) {
+            if (board[i][j] != value) {
+               rowComplete = false;
             }
-            if (board[2 - i][i] != value) {
-                diagonalComplete2 = false;
+            if (board[j][i] != value) {
+               colComplete = false;
             }
-            let rowComplete = true;
-            let colComplete = true;
-            for (var j = 0; j < 3; j++) {
-                if (board[i][j] != value) {
-                    rowComplete = false;
-                }
-                if (board[j][i] != value) {
-                    colComplete = false;
-                }
-                if (board[i][j] == null) {
-                    allNotNull = false;
-                }
+            if (board[i][j] == null) {
+               allNotNull = false;
             }
-            if (rowComplete || colComplete) {
-                return value ? 1 : 0;
-            }
-        }
-        if (diagonalComplete1 || diagonalComplete2) {
+         }
+         if (rowComplete || colComplete) {
             return value ? 1 : 0;
-        }
-    }
-    if (allNotNull) {
-        return -1;
-    }
-    return null;
+         }
+      }
+      if (diagonalComplete1 || diagonalComplete2) {
+         return value ? 1 : 0;
+      }
+   }
+   if (allNotNull) {
+      return -1;
+   }
+   return null;
 }
 
 // Check the internal game board for a winner
 //
 // Returns: N/a
 function updateMove() {
-    updateButtons();
-    let winner = getWinner(board);
-    $("#winner").text(winner == 1 ? "AI Won!" : winner == 0 ? "You Won!" : winner == -1 ? "Tie!" : "");
-    $("#move").text(myMove ? "AI's Move" : "Your move");
+   updateButtons();
+   let winner = getWinner(geBoard);
+   $("#winner").text(winner == 1 ? "AI Won!" : winner == 0 ? "You Won!" :
+      winner == -1 ? "Tie!" : "");
+   $("#move").text(myMove ? "AI's Move" : "Your move");
 }
 
 // Update the positions on the UI game board from the internal game board
 //
 // Returns: N/a
 function updateButtons() {
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-            $("#c" + i + "" + j).text(board[i][j] == false ? "x" : board[i][j] == true ? "o" : "");
-            /*
-            animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
-                "#t3-canvas-"+cellNo);
-            */
-        }
-    }
+   for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+         $("#c" + i + "" + j).text(geBoard[i][j] == false ? "x" : geBoard[i][j] ==
+            true ? "o" : "");
+         /*
+         animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
+             "#t3-canvas-"+cellNo);
+         */
+      }
+   }
 }
 
 // Minmax algorithm
@@ -256,49 +293,50 @@ function updateButtons() {
 //      +1: Game won by computer
 //   board for the outcome indicated by result
 function recurseMinimax(board, player) {
-    numNodes++;
-    let winner = getWinner(board);
-    if (winner != null) {
-        switch(winner) {
-            case 1:
-                return [1, board];    // Winner is the computer
-            case 0:
-                return [-1, board];   // Winner is the player
-            case -1:
-                return [0, board];    // Game was a tie
-        }
-    } else {
-        // Next states
-        let nextVal = null;
-        let nextBoard = null;
+   numNodes++;
+   let winner = getWinner(board);
+   if (winner != null) {
+      switch (winner) {
+         case 1:
+            return [1, board]; // Winner is the computer
+         case 0:
+            return [-1, board]; // Winner is the player
+         case -1:
+            return [0, board]; // Game was a tie
+      }
+   } else {
+      // Next states
+      let nextVal = null;
+      let nextBoard = null;
 
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                if (board[i][j] == null) {
-                    board[i][j] = player;
-                    let value = recurseMinimax(board, !player)[0];
-                    if ((player && (nextVal == null || value > nextVal)) || (!player && (nextVal == null || value < nextVal))) {
-                        nextBoard = board.map(function(arr) {
-                            return arr.slice();
-                        });
-                        nextVal = value;
-                    }
-                    board[i][j] = null;
-                }
+      for (let i = 0; i < 3; i++) {
+         for (let j = 0; j < 3; j++) {
+            if (board[i][j] == null) {
+               board[i][j] = player;
+               let value = recurseMinimax(board, !player)[0];
+               if ((player && (nextVal == null || value > nextVal)) || (!player &&
+                     (nextVal == null || value < nextVal))) {
+                  nextBoard = board.map(function(arr) {
+                     return arr.slice();
+                  });
+                  nextVal = value;
+               }
+               board[i][j] = null;
             }
-        }
-        return [nextVal, nextBoard];
-    }
+         }
+      }
+      return [nextVal, nextBoard];
+   }
 }
 
 function makeMove() {
-    board = minimaxMove(board);
-    console.log(numNodes);
-    myMove = false;
-    updateMove();
+   geBoard = minimaxMove(geBoard);
+   console.log(numNodes);
+   myMove = false;
+   updateMove();
 }
 
 function minimaxMove(board) {
-    numNodes = 0;
-    return recurseMinimax(board, true)[1];
+   numNodes = 0;
+   return recurseMinimax(board, true)[1];
 }
