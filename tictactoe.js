@@ -41,6 +41,11 @@ $(document).ready(function() {
       $("#t3-results-dialog").css("display", "block");
    });
 
+   // Create a button handler for the new game request
+   $(".t3-btn-newgame").click(function(event) {
+     restartGame();
+   });
+
    // Create a button handler to close the game results dialog
    $(".t3-dialog-close").click(function(event) {
       $("#t3-results-dialog").css("display", "none");
@@ -50,8 +55,20 @@ $(document).ready(function() {
    $(".t3-board-cell").click(function(event) {
      let cellId = $(this).attr("id");
      let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-1) : 0;
+
+     var cell = $(this).attr("id")
+     var row = parseInt(cell[1])
+     var col = parseInt(cell[2])
+     if (!myMove) {
+         board[row][col] = false;
+         myMove = true;
+         updateMove();
+         makeMove();
+     }
+
      animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
          "#t3-canvas-"+cellNo);
+
    });
 
    // Create a change handler for the game piece radio button
@@ -63,6 +80,19 @@ $(document).ready(function() {
 
    // Prompt the user to choose a game piece
    $("#t3-greeting-dialog").css("display", "block");
+
+   if (myMove) {
+       makeMove();
+   }
+
+/*
+   $(document).ready(function() {
+       $("button").click(function() {
+       });
+   });
+*/
+   updateMove();
+
 
 });
 
@@ -257,24 +287,3 @@ function minimaxMove(board) {
     numNodes = 0;
     return recurseMinimax(board, true)[1];
 }
-
-if (myMove) {
-    makeMove();
-}
-
-$(document).ready(function() {
-    $("button").click(function() {
-        var cell = $(this).attr("id")
-        var row = parseInt(cell[1])
-        var col = parseInt(cell[2])
-        if (!myMove) {
-            board[row][col] = false;
-            myMove = true;
-            updateMove();
-            makeMove();
-        }
-    });
-    $("#restart").click(restartGame);
-});
-
-updateMove();
