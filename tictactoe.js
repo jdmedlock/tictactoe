@@ -2,9 +2,12 @@
 // File Name: tictactoe.js
 // Date: 11/29/2016
 // Programmer: Jim Medlock
+//
+// Attributions:
+// - Game engine based on information found at https://goo.gl/hTVMyG
 // @flow
 
-use 'strict';
+"use strict";
 // -------------------------------------------------------------
 // Global variables & constants
 // -------------------------------------------------------------
@@ -15,6 +18,15 @@ const playerColor = "#E4FF00";
 let animationRequests = [];
 let playerGamePiece = "";
 let computerGamePiece = "";
+
+let board = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null]
+]
+
+let myMove = false;
+let numNodes = 0;
 
 // -------------------------------------------------------------
 // Initialization function(s)
@@ -43,7 +55,7 @@ $(document).ready(function() {
 
    // Create a button handler for the new game request
    $(".t3-btn-newgame").click(function(event) {
-     restartGame();
+     clearGameBoard();
    });
 
    // Create a button handler to close the game results dialog
@@ -56,19 +68,19 @@ $(document).ready(function() {
      let cellId = $(this).attr("id");
      let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-1) : 0;
 
-     var cell = $(this).attr("id")
-     var row = parseInt(cell[1])
-     var col = parseInt(cell[2])
+     let cell = $(this).attr("id")
+     let row = parseInt(cell[1])
+     let col = parseInt(cell[2])
      if (!myMove) {
          board[row][col] = false;
          myMove = true;
          updateMove();
          makeMove();
      }
-
+/*
      animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
          "#t3-canvas-"+cellNo);
-
+*/
    });
 
    // Create a change handler for the game piece radio button
@@ -85,14 +97,7 @@ $(document).ready(function() {
        makeMove();
    }
 
-/*
-   $(document).ready(function() {
-       $("button").click(function() {
-       });
-   });
-*/
    updateMove();
-
 
 });
 
@@ -100,13 +105,21 @@ $(document).ready(function() {
 // User Interface functions
 // -------------------------------------------------------------
 
-// Clear all game pieces from the game board
+// Clear all game pieces from both the internal game board as
+// well as the UI game board
 //
 // Returns: N/a
 function clearGameBoard() {
    cancelAnimationFrame(animationRequests[8]);
    let ctx = document.querySelector("#t3-canvas-9").getContext("2d");
    ctx.clearRect(0, 0, 88, 88);
+   board = [
+       [null, null, null],
+       [null, null, null],
+       [null, null, null]
+   ];
+   myMove = false;
+   updateMove();
 }
 
 // Place a players piece on the game board
@@ -157,34 +170,33 @@ function placeGamePiece(gamePiece, gamePieceColor, canvasName) {
 // -------------------------------------------------------------
 // Game Logic functions
 // -------------------------------------------------------------
-var board = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-]
 
-var myMove = false;
-
+// Check the internal game board for a winner
+//
+// Returns:
+//   -1: Game was a draw
+//    0: Game won by player
+//   +1: Game won by computer
 function getWinner(board) {
 
     // Check if someone won
-    vals = [true, false];
-    var allNotNull = true;
-    for (var k = 0; k < vals.length; k++) {
-        var value = vals[k];
+    const vals = [true, false];
+    let allNotNull = true;
+    for (let k = 0; k < vals.length; k++) {
+        let value = vals[k];
 
         // Check rows, columns, and diagonals
-        var diagonalComplete1 = true;
-        var diagonalComplete2 = true;
-        for (var i = 0; i < 3; i++) {
+        let diagonalComplete1 = true;
+        let diagonalComplete2 = true;
+        for (let i = 0; i < 3; i++) {
             if (board[i][i] != value) {
                 diagonalComplete1 = false;
             }
             if (board[2 - i][i] != value) {
                 diagonalComplete2 = false;
             }
-            var rowComplete = true;
-            var colComplete = true;
+            let rowComplete = true;
+            let colComplete = true;
             for (var j = 0; j < 3; j++) {
                 if (board[i][j] != value) {
                     rowComplete = false;
@@ -210,58 +222,61 @@ function getWinner(board) {
     return null;
 }
 
-function restartGame() {
-    board = [
-        [null, null, null],
-        [null, null, null],
-        [null, null, null]
-    ];
-    myMove = false;
-    updateMove();
-}
-
+// Check the internal game board for a winner
+//
+// Returns: N/a
 function updateMove() {
     updateButtons();
-    var winner = getWinner(board);
+    let winner = getWinner(board);
     $("#winner").text(winner == 1 ? "AI Won!" : winner == 0 ? "You Won!" : winner == -1 ? "Tie!" : "");
     $("#move").text(myMove ? "AI's Move" : "Your move");
 }
 
+// Update the positions on the UI game board from the internal game board
+//
+// Returns: N/a
 function updateButtons() {
-    for (var i = 0; i < 3; i++) {
-        for (var j = 0; j < 3; j++) {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
             $("#c" + i + "" + j).text(board[i][j] == false ? "x" : board[i][j] == true ? "o" : "");
+            /*
+            animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
+                "#t3-canvas-"+cellNo);
+            */
         }
     }
 }
 
-var numNodes = 0;
-
+// Minmax algorithm
+//
+// Returns:
+//   result of this iteration
+//      -1: Game was a draw
+//       0: Game won by player
+//      +1: Game won by computer
+//   board for the outcome indicated by result
 function recurseMinimax(board, player) {
     numNodes++;
-    var winner = getWinner(board);
+    let winner = getWinner(board);
     if (winner != null) {
         switch(winner) {
             case 1:
-                // AI wins
-                return [1, board]
+                return [1, board];    // Winner is the computer
             case 0:
-                // opponent wins
-                return [-1, board]
+                return [-1, board];   // Winner is the player
             case -1:
-                // Tie
-                return [0, board];
+                return [0, board];    // Game was a tie
         }
     } else {
         // Next states
-        var nextVal = null;
-        var nextBoard = null;
+        let nextVal = null;
+        let nextBoard = null;
 
-        for (var i = 0; i < 3; i++) {
-            for (var j = 0; j < 3; j++) {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
                 if (board[i][j] == null) {
                     board[i][j] = player;
-                    var value = recurseMinimax(board, !player)[0];
+                    let value = recurseMinimax(board, !player)[0];
                     if ((player && (nextVal == null || value > nextVal)) || (!player && (nextVal == null || value < nextVal))) {
                         nextBoard = board.map(function(arr) {
                             return arr.slice();
