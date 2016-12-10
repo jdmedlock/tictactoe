@@ -14,17 +14,17 @@
 
 const computerColor = "#FF00FF";
 const playerColor = "#E4FF00";
-const cellMap = {
-   1: [0, 0],
-   2: [0, 1],
-   3: [0, 2],
-   4: [1, 0],
-   5: [1, 1],
-   6: [1, 2],
-   7: [2, 0],
-   8: [2, 1],
-   9: [2, 2]
-};
+const cellMap = [
+   [0, 0],
+   [0, 1],
+   [0, 2],
+   [1, 0],
+   [1, 1],
+   [1, 2],
+   [2, 0],
+   [2, 1],
+   [2, 2]
+];
 
 
 let animationRequests = [];
@@ -190,7 +190,7 @@ function placeGamePiece(gamePiece, gamePieceColor, canvasName) {
 //    - cellToRowCol(cellNo)[0] = row number
 //    - cellToRowCol(cellNo)[1] = cell number
 function cellToRowCol(cellNo) {
-   return cellMap[cellNo];
+   return cellMap[cellNo - 1];
 }
 
 // Given a row and column number in the internal game board, return
@@ -200,6 +200,33 @@ function cellToRowCol(cellNo) {
 function rowColToCell(row, col) {
    return cellMap.find = (element, index, array) =>
       (element[0] === row && element[1] === col);
+}
+
+// Check the internal game board for a winner
+//
+// Returns: N/a
+function updateMove() {
+   updateButtons();
+   let winner = getWinner(geBoard);
+   $("#winner").text(winner == 1 ? "AI Won!" : winner == 0 ? "You Won!" :
+      winner == -1 ? "Tie!" : "");
+   $("#move").text(myMove ? "AI's Move" : "Your move");
+}
+
+// Update the positions on the UI game board from the internal game board
+//
+// Returns: N/a
+function updateButtons() {
+   for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+         $("#c" + i + "" + j).text(geBoard[i][j] == false ? "x" : geBoard[i][j] ==
+            true ? "o" : "");
+         /*
+         animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
+             "#t3-canvas-"+cellNo);
+         */
+      }
+   }
 }
 
 // -------------------------------------------------------------
@@ -255,33 +282,6 @@ function getWinner(board) {
       return -1;
    }
    return null;
-}
-
-// Check the internal game board for a winner
-//
-// Returns: N/a
-function updateMove() {
-   updateButtons();
-   let winner = getWinner(geBoard);
-   $("#winner").text(winner == 1 ? "AI Won!" : winner == 0 ? "You Won!" :
-      winner == -1 ? "Tie!" : "");
-   $("#move").text(myMove ? "AI's Move" : "Your move");
-}
-
-// Update the positions on the UI game board from the internal game board
-//
-// Returns: N/a
-function updateButtons() {
-   for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-         $("#c" + i + "" + j).text(geBoard[i][j] == false ? "x" : geBoard[i][j] ==
-            true ? "o" : "");
-         /*
-         animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
-             "#t3-canvas-"+cellNo);
-         */
-      }
-   }
 }
 
 // Minmax algorithm
