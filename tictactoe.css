@@ -5,213 +5,228 @@ Programmer: Jim Medlock
 */
 
 html {
-  font-family: 'Josefin Sans', serif;
-  min-height: 100%;
-  position: relative;
+    font-family: 'Josefin Sans', serif;
+    min-height: 100%;
+    position: relative;
 }
 
 body {
-  background-color: #505455;
-  color: #8B8E8F;
-  margin-top: 0px;
-  margin-bottom: 60px;
+    background-color: #505455;
+    color: #8B8E8F;
+    margin-top: 0px;
+    margin-bottom: 60px;
 }
 
 h3 {
-  color: white;
-  margin-top: 5px;
+    color: white;
+    margin-top: 5px;
 }
 
 th {
-   color: white;
-   text-align: center;
+    color: black;
+    text-align: center;
 }
+
 
 /* ---------------------------------------------
    Common elements used throughout the page
    --------------------------------------------- */
+
 .t3-bar-row {
-   margin-top: 10px;
+    margin-top: 10px;
 }
 
-.t3-btn,
-.t3-btn:hover,
-.t3-btn:active,
-.t3-btn:visited,
-.t3-btn:focus {
-  background-color: #CDE0E2;
-  border-color: black;
-  color: #225F65;
-  font-size: large;
-  margin-right: 10px;
+.t3-btn, .t3-btn:hover, .t3-btn:active, .t3-btn:visited, .t3-btn:focus {
+    background-color: #CDE0E2;
+    border-color: black;
+    color: #225F65;
+    font-size: large;
+    margin-right: 10px;
 }
 
 .t3-btn-center {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .t3-small-text {
- font-size: 90%;
+    font-size: 90%;
 }
+
 
 /* ---------------------------------------------
    Page title
    --------------------------------------------- */
+
 .t3-jumbotron {
-  background-color: #659599;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.50);
-  color: #808D94;
-  display: block;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  text-align: center;
+    background-color: #659599;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.50);
+    color: #808D94;
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
 }
+
 
 /* ---------------------------------------------
    Game Board
    --------------------------------------------- */
+
 .t3-game-board {
-   margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .t3-board-cell {
-  margin-top:5px;
-  padding: 5px;
+    margin-top: 5px;
+    padding: 5px;
 }
 
 .t3-canvas {
-  width: 50%;
-  height: 50%;
+    width: 50%;
+    height: 50%;
 }
 
-#t3-cell-1,
-#t3-cell-4 {
-  border-top-color: transparent;
-  border-left-color: #8B8E8F;
-  border-right-color: #8B8E8F;
-  border-bottom-color: #8B8E8F;
-  border-style: solid;
+#t3-cell-1, #t3-cell-4 {
+    border-top-color: transparent;
+    border-left-color: #8B8E8F;
+    border-right-color: #8B8E8F;
+    border-bottom-color: #8B8E8F;
+    border-style: solid;
 }
 
-#t3-cell-0,
-#t3-cell-2,
-#t3-cell-3,
-#t3-cell-5 {
-  border-top-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  border-bottom-color: #8B8E8F;
-  border-style: solid;
+#t3-cell-0, #t3-cell-2, #t3-cell-3, #t3-cell-5 {
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: #8B8E8F;
+    border-style: solid;
 }
 
 #t3-cell-7 {
-  border-top-color: transparent;
-  border-left-color: #8B8E8F;
-  border-right-color: #8B8E8F;
-  border-bottom-color: transparent;
-  border-style: solid;
+    border-top-color: transparent;
+    border-left-color: #8B8E8F;
+    border-right-color: #8B8E8F;
+    border-bottom-color: transparent;
+    border-style: solid;
 }
+
 
 /* ---------------------------------------------
    Modal Game Results dialog
    --------------------------------------------- */
 
 .t3-game-results {
-   margin-top: 10px;
-   margin-left: auto;
-   margin-right: auto;
-   margin-bottom: 10px;
-   text-align: center;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .t3-results-tbl {
-   color: black;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 30%;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
 }
 
 .t3-results-tbl.thead {
-  text-align: center;
+    text-align: center;
 }
+
 
 /* ---------------------------------------------
    Modal Help dialog
    --------------------------------------------- */
+
 .t3-dialog-open {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .t3-dialog-body {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
 }
+
 
 /* Modal Content */
+
 .t3-dialog-content {
-  background-color: #fefefe;
-  color: black;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  text-align: left;
-  width: 80%;
+    background-color: #fefefe;
+    color: black;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    text-align: left;
+    width: 80%;
 }
 
-.t3-dialog-content > h3 {
-  color: black;
+.t3-dialog-content>h3 {
+    color: black;
 }
+
 
 /* The Close Button */
+
 .t3-dialog-close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.t3-dialog-close:hover,
-.t3-dialog-close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+.t3-dialog-close:hover, .t3-dialog-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
+
 
 /* ---------------------------------------------
    Page footer
    --------------------------------------------- */
+
 .t3-bottom-bar {
-  bottom: 0;
-  background-color: #0A3C41;
-  color: white;
-  height: 60px;
-  padding-left: 10px;
-  padding-bottom: 5px;
-  position: absolute;
-  width: 100%;
+    bottom: 0;
+    background-color: #0A3C41;
+    color: white;
+    height: 60px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    position: absolute;
+    width: 100%;
 }
 
 .t3-bottom-bar a {
-  color: white;
-  font-size: small;
-  margin-left: 0px;
-  padding-top: 0px;
-  padding-left: 3px;
-  padding-right: 2px;
+    color: white;
+    font-size: small;
+    margin-left: 0px;
+    padding-top: 0px;
+    padding-left: 3px;
+    padding-right: 2px;
 }

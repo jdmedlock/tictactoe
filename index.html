@@ -153,12 +153,11 @@ URL: tttgame.surge.sh
      <div class="t3-dialog-body" id="t3-help-dialog">
         <div class="t3-dialog-content">
             <span class="t3-dialog-close">×</span>
-            <p>Tic-Tac-Toe Game Instructions:
+            <h4>Tic-Tac-Toe Game Instructions:</h4>
                 <ul>
                     <li>Click on any open cell in the game board to place your game piece.</li>
                     <li>Click on the Scores button to see the results of all game play.</li>
                 </ul>
-            </p>
         </div>
      </div> <!-- End of Modal Help Dialog -->
 
@@ -169,31 +168,19 @@ URL: tttgame.surge.sh
         <div class="t3-dialog-content">
             <span class="t3-dialog-close">×</span>
             <div class="table-responsive text-center t3-game-results">
-                <h3>Game Results History</h3>
+                <h4>Game Results History</h4>
                 <table class="table-bordered table-striped t3-results-tbl">
-                    <tbody>
-                        <thead>
-                           <tr>
-                              <th>Game #</th>
-                              <th>Computer</th>
-                              <th>You</th>
-                           </tr>
-                        </thead>
-                        <tr>
-                            <td>1</td>
-                            <td>Win</td>
-                            <td>Loss</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Loss</td>
-                            <td>Win</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Draw</td>
-                            <td>Draw</td>
-                        </tr>
+                  <thead>
+                      <tr>
+                        <th>Game #</th>
+                        <th>Computer</th>
+                        <th>You</th>
+                        <th>Game Board</th>
+                      </tr>
+                   </thead>
+                    <tbody id="t3-game-detail">
+                        <!-- Details for each game result are dynamically
+                             generated here -->
                     </tbody>
                 </table>
             </div> <!-- end of t3-game-results -->
