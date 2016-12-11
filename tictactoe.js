@@ -237,8 +237,8 @@ function updateButtons() {
       for (let colNo = 0; colNo < 3; colNo++) {
          if (geBoard[rowNo][colNo] !== null) {
             let gamePiece = (geBoard[rowNo][colNo] == false) ?
-               computerGamePiece : (geBoard[rowNo][colNo] ==
-                  true) ? playerGamePiece : "";
+               playerGamePiece : (geBoard[rowNo][colNo] ==
+                  true) ? computerGamePiece : "";
             let cellNo = rowColToCell(rowNo, colNo);
             animationRequests[0] = placeGamePiece(gamePiece, computerColor,
                "#t3-canvas-" + cellNo);
