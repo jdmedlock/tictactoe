@@ -14,6 +14,12 @@
 
 const computerColor = "#FF00FF";
 const playerColor = "#E4FF00";
+
+const gameInprogress = null;
+const gameTied = -1;
+const gameWonComputer = 1;
+const gameWonPlayer = 0;
+
 const cellMap = [
    [0, 0],
    [0, 1],
@@ -44,9 +50,11 @@ let geBoard = [
 // game results dialog when requested by the user.
 let gameHistory = [{}];
 let historyElement = {
-  gameNo: 0,            // Ascending game number in the current session
-  winner: null,         // Winner of the game - "Computer" or "Player"
-  endingBoard: [[]]     // Ending game engine board
+   gameNo: 0, // Ascending game number in the current session
+   winner: null, // Winner of the game - "Computer", "Player", or "Tie"
+   endingBoard: [
+         []
+      ] // Ending game engine board
 };
 
 // -------------------------------------------------------------
@@ -90,13 +98,12 @@ $(document).ready(function() {
       let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-
          1) : 0;
 
-      let row = cellToRowCol(cellNo)[0];
-      let col = cellToRowCol(cellNo)[1];
       if (!myMove) {
-         geBoard[row][col] = false;
+         geBoard[cellToRowCol(cellNo)[0]][cellToRowCol(cellNo)[1]] =
+            false;
          myMove = true;
          updateMove();
-         makeMove();
+         pause(1).then(() => makeMove());
       }
    });
 
@@ -114,16 +121,6 @@ $(document).ready(function() {
 });
 
 // -------------------------------------------------------------
-// Main Execution Loop
-// -------------------------------------------------------------
-/*
-if (myMove) {
-   makeMove();
-}
-updateMove();
-*/
-
-// -------------------------------------------------------------
 // User Interface functions
 // -------------------------------------------------------------
 
@@ -133,9 +130,9 @@ updateMove();
 // Returns: N/a
 function clearGameBoard() {
    for (let i = 0; i < 9; i++) {
-      geBoard[i] = [null,null,null];
+      geBoard[i] = [null, null, null];
       //cancelAnimationFrame(currentValue)
-      let ctx = document.querySelector("#t3-canvas-"+i).getContext("2d");
+      let ctx = document.querySelector("#t3-canvas-" + i).getContext("2d");
       ctx.clearRect(0, 0, 88, 88);
    };
 
@@ -206,12 +203,13 @@ function cellToRowCol(cellNo) {
 function rowColToCell(rowNo, colNo) {
    const notFound = -1;
    return cellMap.reduce((matchingIndex, currentValue, currentIndex, array) => {
-     if (matchingIndex === notFound) {
-      return (currentValue[0] == rowNo && currentValue[1] == colNo) ? currentIndex : notFound;
-    } else {
-      return matchingIndex;
-    }
-  }, notFound);
+      if (matchingIndex === notFound) {
+         return (currentValue[0] == rowNo && currentValue[1] == colNo) ?
+            currentIndex : notFound;
+      } else {
+         return matchingIndex;
+      }
+   }, notFound);
 }
 
 // Check the internal game board for a winner
@@ -220,9 +218,15 @@ function rowColToCell(rowNo, colNo) {
 function updateMove() {
    updateButtons();
    let winner = getWinner(geBoard);
-   $("#t3-status-msg").text(winner == 1 ? "Computer Won!" : winner == 0 ? "Player Won!" :
-      winner == -1 ? "Tie Game!" : "");
-   $("#t3-status-msg").text(myMove ? "Computer's Move" : "Your move");
+   switch (winner) {
+      case gameInprogress:
+         $("#t3-status-msg").text(myMove ? "Computer's Move" : "Your move");
+         break;
+      default:
+         $("#t3-status-msg").text(winner == gameWonComputer ? "Computer Won!" :
+            winner == gameWonPlayer ? "Player Won!" :
+            winner == gameTied ? "Tie Game!" : "");
+   }
 }
 
 // Update the positions on the UI game board from the internal game board
@@ -231,17 +235,28 @@ function updateMove() {
 function updateButtons() {
    for (let rowNo = 0; rowNo < 3; rowNo++) {
       for (let colNo = 0; colNo < 3; colNo++) {
-        if (geBoard[rowNo][colNo] !== null) {
-          let gamePiece = (geBoard[rowNo][colNo] == false) ? computerGamePiece : (geBoard[rowNo][colNo] ==
-             true) ? playerGamePiece : "";
-          let cellNo = rowColToCell(rowNo, colNo);
-          animationRequests[0] = placeGamePiece(gamePiece, computerColor,
-            "#t3-canvas-"+cellNo);
-        }
+         if (geBoard[rowNo][colNo] !== null) {
+            let gamePiece = (geBoard[rowNo][colNo] == false) ?
+               computerGamePiece : (geBoard[rowNo][colNo] ==
+                  true) ? playerGamePiece : "";
+            let cellNo = rowColToCell(rowNo, colNo);
+            animationRequests[0] = placeGamePiece(gamePiece, computerColor,
+               "#t3-canvas-" + cellNo);
+         }
       }
    }
 }
 
+// Pause execution for n seconds
+//
+// Returns: Promise when the timeout has expired
+function pause(waitSeconds) {
+   return new Promise(function(resolve, reject) {
+      setTimeout(() => {
+         resolve("Pause of " + waitSeconds + " completed.");
+      }, waitSeconds * 1000);
+   });
+}
 // -------------------------------------------------------------
 // Game Logic functions
 // -------------------------------------------------------------
@@ -249,9 +264,10 @@ function updateButtons() {
 // Check the internal game board for a winner
 //
 // Returns:
-//   -1: Game was a draw
-//    0: Game won by player
-//   +1: Game won by computer
+//    gameInprogress (null):  Game still in progress
+//    gameTied (-1):          Game was a draw
+//    gameWonPlayer (0):      Game won by player
+//    gameWonComputer (1):    Game won by computer
 function getWinner(board) {
 
    // Check if someone won
@@ -284,17 +300,45 @@ function getWinner(board) {
             }
          }
          if (rowComplete || colComplete) {
-            return value ? 1 : 0;
+            return value ? gameWonComputer : gameWonPlayer;
          }
       }
       if (diagonalComplete1 || diagonalComplete2) {
-         return value ? 1 : 0;
+         return value ? gameWonComputer : gameWonPlayer;
       }
    }
    if (allNotNull) {
-      return -1;
+      return gameTied;
    }
-   return null;
+   return gameInprogress;
+}
+
+// Make a move
+//
+// Returns:
+//   -1: Game was a draw
+//    0: Game won by player
+//   +1: Game won by computer
+function makeMove() {
+   geBoard = minmaxMove(geBoard);
+   console.log(numNodes);
+   myMove = false;
+   updateMove();
+}
+
+// Invoke the minmax algorithm to determine the next best move
+// based on the current state of the game board and the players
+// last move.
+//
+// Returns:
+//   result of this iteration
+//      -1: Game was a draw
+//       0: Game won by player
+//      +1: Game won by computer
+//   board for the outcome indicated by result
+function minmaxMove(board) {
+   numNodes = 0;
+   return recurseMinmax(board, true)[1];
 }
 
 // Minmax algorithm
@@ -305,7 +349,7 @@ function getWinner(board) {
 //       0: Game won by player
 //      +1: Game won by computer
 //   board for the outcome indicated by result
-function recurseMinimax(board, player) {
+function recurseMinmax(board, player) {
    numNodes++;
    let winner = getWinner(board);
    if (winner != null) {
@@ -326,7 +370,7 @@ function recurseMinimax(board, player) {
          for (let j = 0; j < 3; j++) {
             if (board[i][j] == null) {
                board[i][j] = player;
-               let value = recurseMinimax(board, !player)[0];
+               let value = recurseMinmax(board, !player)[0];
                if ((player && (nextVal == null || value > nextVal)) || (!player &&
                      (nextVal == null || value < nextVal))) {
                   nextBoard = board.map(function(arr) {
@@ -340,16 +384,4 @@ function recurseMinimax(board, player) {
       }
       return [nextVal, nextBoard];
    }
-}
-
-function makeMove() {
-   geBoard = minimaxMove(geBoard);
-   console.log(numNodes);
-   myMove = false;
-   updateMove();
-}
-
-function minimaxMove(board) {
-   numNodes = 0;
-   return recurseMinimax(board, true)[1];
 }
