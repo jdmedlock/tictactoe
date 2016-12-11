@@ -50,9 +50,8 @@ let geBoard = [
 // game results dialog when requested by the user.
 let gameHistory = [{}];
 let historyElement = {
-   gameNo: 0, // Ascending game number in the current session
-   winner: null, // Winner of the game - "Computer", "Player", or "Tie"
-   endingBoard: [
+   winner: null, // Winner of the game - gameTied|gameWonPlayer|gameWonComputer
+   board: [
          []
       ] // Ending game engine board
 };
@@ -80,6 +79,20 @@ $(document).ready(function() {
    // Create a button handler for the game results dialog
    $(".t3-btn-results").click(function(event) {
       $("#t3-results-dialog").css("display", "block");
+      let newRow = "<tr>";
+      for (let rowNo = 0; rowNo < gameHistory.length; rowNo++) {
+         newRow += "<td>" + (rowNo + 1) + "</td>";
+         historyElement = gameHistory[rowNo];
+         let outcomeForComputer = (historyElement.winner ===
+            gameWonComputer) ? "W" : "-";
+         newRow += "<td>" + outcomeForComputer + "</td>";
+         let outcomeForPlayer = (historyElement.winner ===
+            gameWonPlayer) ? "W" : "-";
+         newRow += "<td>" + outcomeForPlayer + "</td>";
+         newRow += "<td>" + historyElement.board + "</td>";
+      }
+      newRow += "</tr>";
+      $("#t3-game-detail").append(newRow);
    });
 
    // Create a button handler for the new game request
@@ -130,7 +143,9 @@ $(document).ready(function() {
 // Returns: N/a
 function clearGameBoard() {
    for (let i = 0; i < 9; i++) {
-      geBoard[i] = [null, null, null];
+      if (i < geBoard.length) {
+         geBoard[i] = [null, null, null];
+      }
       //cancelAnimationFrame(currentValue)
       let ctx = document.querySelector("#t3-canvas-" + i).getContext("2d");
       ctx.clearRect(0, 0, 88, 88);
@@ -226,6 +241,7 @@ function updateMove() {
          $("#t3-status-msg").text(winner == gameWonComputer ? "Computer Won!" :
             winner == gameWonPlayer ? "Player Won!" :
             winner == gameTied ? "Tie Game!" : "");
+         updateGameHistory(winner);
    }
 }
 
@@ -248,6 +264,30 @@ function updateButtons() {
          }
       }
    }
+}
+
+// Update the Game History array with the results of this game
+//
+// Returns: N/a
+function updateGameHistory(winner) {
+   if (winner === gameInprogress) {
+      throw new Error("Error: updateGameHistory called while gameInprogress");
+   }
+   let endingBoard = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""]
+   ];
+   for (let rowNo = 0; rowNo < 3; rowNo++) {
+      for (let colNo = 0; colNo < 3; colNo++) {
+         endingBoard[rowNo][colNo] = (geBoard[rowNo][colNo] == false) ?
+            playerGamePiece : (geBoard[rowNo][colNo] ==
+               true) ? computerGamePiece : " ";
+      }
+   }
+   historyElement.winner = winner;
+   historyElement.board = endingBoard;
+   gameHistory.push(historyElement);
 }
 
 // Pause execution for n seconds
