@@ -239,8 +239,11 @@ function updateButtons() {
             let gamePiece = (geBoard[rowNo][colNo] == false) ?
                playerGamePiece : (geBoard[rowNo][colNo] ==
                   true) ? computerGamePiece : "";
+            let gamePieceColor = (geBoard[rowNo][colNo] == false) ?
+               playerColor : (geBoard[rowNo][colNo] ==
+                  true) ? computerColor : "#000";
             let cellNo = rowColToCell(rowNo, colNo);
-            animationRequests[0] = placeGamePiece(gamePiece, computerColor,
+            animationRequests[0] = placeGamePiece(gamePiece, gamePieceColor,
                "#t3-canvas-" + cellNo);
          }
       }
@@ -315,10 +318,7 @@ function getWinner(board) {
 
 // Make a move
 //
-// Returns:
-//   -1: Game was a draw
-//    0: Game won by player
-//   +1: Game won by computer
+// Returns: N/a
 function makeMove() {
    geBoard = minmaxMove(geBoard);
    console.log(numNodes);
@@ -331,10 +331,6 @@ function makeMove() {
 // last move.
 //
 // Returns:
-//   result of this iteration
-//      -1: Game was a draw
-//       0: Game won by player
-//      +1: Game won by computer
 //   board for the outcome indicated by result
 function minmaxMove(board) {
    numNodes = 0;
@@ -344,10 +340,10 @@ function minmaxMove(board) {
 // Minmax algorithm
 //
 // Returns:
-//   result of this iteration
-//      -1: Game was a draw
-//       0: Game won by player
-//      +1: Game won by computer
+//   Resulting benefit of this iteration
+//        0: Game was a draw
+//       -1: Game won by player
+//       +1: Game won by computer
 //   board for the outcome indicated by result
 function recurseMinmax(board, player) {
    numNodes++;
