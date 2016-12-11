@@ -48,12 +48,10 @@ let geBoard = [
 // Game history is an array of history elements depicting the
 // ending result of every game. This is displayed in the modal
 // game results dialog when requested by the user.
-let gameHistory = [{}];
+let gameHistory = [];
 let historyElement = {
    winner: null, // Winner of the game - gameTied|gameWonPlayer|gameWonComputer
-   board: [
-         []
-      ] // Ending game engine board
+   board: []     // Ending game engine board
 };
 
 // -------------------------------------------------------------
@@ -79,8 +77,8 @@ $(document).ready(function() {
    // Create a button handler for the game results dialog
    $(".t3-btn-results").click(function(event) {
       $("#t3-results-dialog").css("display", "block");
-      let newRow = "<tr>";
-      for (let rowNo = 0; rowNo < gameHistory.length; rowNo++) {
+      for (let rowNo = 0; rowNo < gameHistory.length; ++rowNo) {
+         let newRow = "<tr>";
          newRow += "<td>" + (rowNo + 1) + "</td>";
          historyElement = gameHistory[rowNo];
          let outcomeForComputer = (historyElement.winner ===
@@ -89,10 +87,14 @@ $(document).ready(function() {
          let outcomeForPlayer = (historyElement.winner ===
             gameWonPlayer) ? "W" : "-";
          newRow += "<td>" + outcomeForPlayer + "</td>";
-         newRow += "<td>" + historyElement.board + "</td>";
+         var endingBoard = "<td>";
+         endingBoard = historyElement.board.reduce(function(endingBoard, currentValue) {
+           return endingBoard + currentValue + "<br/>";
+         }, endingBoard);
+         newRow += "<td>" + endingBoard + "</td>";
+         newRow += "</tr>";
+         $(".t3-game-detail").append(newRow);
       }
-      newRow += "</tr>";
-      $("#t3-game-detail").append(newRow);
    });
 
    // Create a button handler for the new game request
@@ -102,21 +104,33 @@ $(document).ready(function() {
 
    // Create a button handler to close the game results dialog
    $(".t3-dialog-close").click(function(event) {
+      $("#t3-game-detail").empty();
       $("#t3-results-dialog").css("display", "none");
    });
 
    // Create a click handler for the cells of the game board
    $(".t3-board-cell").click(function(event) {
-      let cellId = $(this).attr("id");
-      let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-
-         1) : 0;
-
       if (!myMove) {
+        let cellId = $(this).attr("id");
+        let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-
+          1) : 0;
          geBoard[cellToRowCol(cellNo)[0]][cellToRowCol(cellNo)[1]] =
             false;
          myMove = true;
          updateMove();
          pause(1).then(() => makeMove());
+      }
+
+      let winner = getWinner(geBoard);
+      switch (winner) {
+        case gameInprogress:
+           $("#t3-status-msg").text(myMove ? "Computer's Move" : "Your move");
+           break;
+        default:
+           $("#t3-status-msg").text(winner === gameWonComputer ? "Computer Won!" :
+              winner == gameWonPlayer ? "Player Won!" :
+              winner == gameTied ? "Tie Game!" : "");
+           updateGameHistory(winner);
       }
    });
 
@@ -142,15 +156,16 @@ $(document).ready(function() {
 //
 // Returns: N/a
 function clearGameBoard() {
+   animationRequests.forEach((currentValue, index, array) => cancelAnimationFrame(currentValue));
    for (let i = 0; i < 9; i++) {
-      if (i < geBoard.length) {
-         geBoard[i] = [null, null, null];
-      }
-      //cancelAnimationFrame(currentValue)
       let ctx = document.querySelector("#t3-canvas-" + i).getContext("2d");
       ctx.clearRect(0, 0, 88, 88);
    };
-
+   geBoard = [
+     [null, null, null],
+     [null, null, null],
+     [null, null, null]
+   ];
    myMove = false;
    updateMove();
 }
@@ -232,17 +247,6 @@ function rowColToCell(rowNo, colNo) {
 // Returns: N/a
 function updateMove() {
    updateButtons();
-   let winner = getWinner(geBoard);
-   switch (winner) {
-      case gameInprogress:
-         $("#t3-status-msg").text(myMove ? "Computer's Move" : "Your move");
-         break;
-      default:
-         $("#t3-status-msg").text(winner == gameWonComputer ? "Computer Won!" :
-            winner == gameWonPlayer ? "Player Won!" :
-            winner == gameTied ? "Tie Game!" : "");
-         updateGameHistory(winner);
-   }
 }
 
 // Update the positions on the UI game board from the internal game board
@@ -259,7 +263,7 @@ function updateButtons() {
                playerColor : (geBoard[rowNo][colNo] ==
                   true) ? computerColor : "#000";
             let cellNo = rowColToCell(rowNo, colNo);
-            animationRequests[0] = placeGamePiece(gamePiece, gamePieceColor,
+            animationRequests[cellNo] = placeGamePiece(gamePiece, gamePieceColor,
                "#t3-canvas-" + cellNo);
          }
       }
@@ -278,13 +282,15 @@ function updateGameHistory(winner) {
       ["", "", ""],
       ["", "", ""]
    ];
+
    for (let rowNo = 0; rowNo < 3; rowNo++) {
       for (let colNo = 0; colNo < 3; colNo++) {
-         endingBoard[rowNo][colNo] = (geBoard[rowNo][colNo] == false) ?
-            playerGamePiece : (geBoard[rowNo][colNo] ==
+         endingBoard[rowNo][colNo] = (geBoard[rowNo][colNo] === false) ?
+            playerGamePiece : (geBoard[rowNo][colNo] ===
                true) ? computerGamePiece : " ";
       }
    }
+
    historyElement.winner = winner;
    historyElement.board = endingBoard;
    gameHistory.push(historyElement);
