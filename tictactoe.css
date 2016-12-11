@@ -90,8 +90,8 @@ th {
   height: 50%;
 }
 
-#t3-cell-2,
-#t3-cell-5 {
+#t3-cell-1,
+#t3-cell-4 {
   border-top-color: transparent;
   border-left-color: #8B8E8F;
   border-right-color: #8B8E8F;
@@ -99,10 +99,10 @@ th {
   border-style: solid;
 }
 
-#t3-cell-1,
+#t3-cell-0,
+#t3-cell-2,
 #t3-cell-3,
-#t3-cell-4,
-#t3-cell-6 {
+#t3-cell-5 {
   border-top-color: transparent;
   border-left-color: transparent;
   border-right-color: transparent;
@@ -110,7 +110,7 @@ th {
   border-style: solid;
 }
 
-#t3-cell-8 {
+#t3-cell-7 {
   border-top-color: transparent;
   border-left-color: #8B8E8F;
   border-right-color: #8B8E8F;

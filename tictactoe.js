@@ -5,7 +5,7 @@
 //
 // Attributions:
 // - Game engine based on information found at https://goo.gl/hTVMyG
-// @flow
+/* @flow */
 
 "use strict";
 // -------------------------------------------------------------
@@ -26,20 +26,28 @@ const cellMap = [
    [2, 2]
 ];
 
-
 let animationRequests = [];
-let playerGamePiece = "";
 let computerGamePiece = "";
+let myMove = false;
+let numNodes = 0;
+let playerGamePiece = "";
 
 // Game engine game board
 let geBoard = [
    [null, null, null],
    [null, null, null],
    [null, null, null]
-]
+];
 
-let myMove = false;
-let numNodes = 0;
+// Game history is an array of history elements depicting the
+// ending result of every game. This is displayed in the modal
+// game results dialog when requested by the user.
+let gameHistory = [{}];
+let historyElement = {
+  gameNo: 0,            // Ascending game number in the current session
+  winner: null,         // Winner of the game - "Computer" or "Player"
+  endingBoard: [[]]     // Ending game engine board
+};
 
 // -------------------------------------------------------------
 // Initialization function(s)
@@ -90,10 +98,6 @@ $(document).ready(function() {
          updateMove();
          makeMove();
       }
-      /*
-           animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
-               "#t3-canvas-"+cellNo);
-      */
    });
 
    // Create a change handler for the game piece radio button
@@ -107,14 +111,17 @@ $(document).ready(function() {
 
    // Prompt the user to choose a game piece
    $("#t3-greeting-dialog").css("display", "block");
-
-   if (myMove) {
-      makeMove();
-   }
-
-   updateMove();
-
 });
+
+// -------------------------------------------------------------
+// Main Execution Loop
+// -------------------------------------------------------------
+/*
+if (myMove) {
+   makeMove();
+}
+updateMove();
+*/
 
 // -------------------------------------------------------------
 // User Interface functions
@@ -125,19 +132,18 @@ $(document).ready(function() {
 //
 // Returns: N/a
 function clearGameBoard() {
-   cancelAnimationFrame(animationRequests[8]);
-   let ctx = document.querySelector("#t3-canvas-9").getContext("2d");
-   ctx.clearRect(0, 0, 88, 88);
-   geBoard = [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null]
-   ];
+   for (let i = 0; i < 9; i++) {
+      geBoard[i] = [null,null,null];
+      //cancelAnimationFrame(currentValue)
+      let ctx = document.querySelector("#t3-canvas-"+i).getContext("2d");
+      ctx.clearRect(0, 0, 88, 88);
+   };
+
    myMove = false;
    updateMove();
 }
 
-// Place a players piece on the game board
+// Place a players piece on the UI game board
 // From a blog post at https://goo.gl/jD367a
 //
 // Returns: An animation request ID
@@ -190,16 +196,22 @@ function placeGamePiece(gamePiece, gamePieceColor, canvasName) {
 //    - cellToRowCol(cellNo)[0] = row number
 //    - cellToRowCol(cellNo)[1] = cell number
 function cellToRowCol(cellNo) {
-   return cellMap[cellNo - 1];
+   return cellMap[cellNo];
 }
 
 // Given a row and column number in the internal game board, return
 // the equivalent cell number in the UI game board.
 //
 // Returns: A cell number in the UI game board
-function rowColToCell(row, col) {
-   return cellMap.find = (element, index, array) =>
-      (element[0] === row && element[1] === col);
+function rowColToCell(rowNo, colNo) {
+   const notFound = -1;
+   return cellMap.reduce((matchingIndex, currentValue, currentIndex, array) => {
+     if (matchingIndex === notFound) {
+      return (currentValue[0] == rowNo && currentValue[1] == colNo) ? currentIndex : notFound;
+    } else {
+      return matchingIndex;
+    }
+  }, notFound);
 }
 
 // Check the internal game board for a winner
@@ -208,23 +220,24 @@ function rowColToCell(row, col) {
 function updateMove() {
    updateButtons();
    let winner = getWinner(geBoard);
-   $("#winner").text(winner == 1 ? "AI Won!" : winner == 0 ? "You Won!" :
-      winner == -1 ? "Tie!" : "");
-   $("#move").text(myMove ? "AI's Move" : "Your move");
+   $("#t3-status-msg").text(winner == 1 ? "Computer Won!" : winner == 0 ? "Player Won!" :
+      winner == -1 ? "Tie Game!" : "");
+   $("#t3-status-msg").text(myMove ? "Computer's Move" : "Your move");
 }
 
 // Update the positions on the UI game board from the internal game board
 //
 // Returns: N/a
 function updateButtons() {
-   for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-         $("#c" + i + "" + j).text(geBoard[i][j] == false ? "x" : geBoard[i][j] ==
-            true ? "o" : "");
-         /*
-         animationRequests[0] = placeGamePiece(computerGamePiece, computerColor,
-             "#t3-canvas-"+cellNo);
-         */
+   for (let rowNo = 0; rowNo < 3; rowNo++) {
+      for (let colNo = 0; colNo < 3; colNo++) {
+        if (geBoard[rowNo][colNo] !== null) {
+          let gamePiece = (geBoard[rowNo][colNo] == false) ? computerGamePiece : (geBoard[rowNo][colNo] ==
+             true) ? playerGamePiece : "";
+          let cellNo = rowColToCell(rowNo, colNo);
+          animationRequests[0] = placeGamePiece(gamePiece, computerColor,
+            "#t3-canvas-"+cellNo);
+        }
       }
    }
 }
