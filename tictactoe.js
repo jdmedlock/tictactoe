@@ -77,6 +77,7 @@ $(document).ready(function() {
    // Create a button handler for the game results dialog
    $(".t3-btn-results").click(function(event) {
       $("#t3-results-dialog").css("display", "block");
+      $(".t3-game-detail tr").empty();
       for (let rowNo = 0; rowNo < gameHistory.length; ++rowNo) {
          let newRow = "<tr>";
          newRow += "<td>" + (rowNo + 1) + "</td>";
@@ -91,7 +92,7 @@ $(document).ready(function() {
          endingBoard = historyElement.board.reduce(function(endingBoard, currentValue) {
            return endingBoard + currentValue + "<br/>";
          }, endingBoard);
-         newRow += "<td>" + endingBoard + "</td>";
+         newRow += endingBoard + "</td>";
          newRow += "</tr>";
          $(".t3-game-detail").append(newRow);
       }
@@ -104,7 +105,7 @@ $(document).ready(function() {
 
    // Create a button handler to close the game results dialog
    $(".t3-dialog-close").click(function(event) {
-      $("#t3-game-detail").empty();
+      $(".t3-game-detail tr").empty();
       $("#t3-results-dialog").css("display", "none");
    });
 
@@ -256,11 +257,11 @@ function updateButtons() {
    for (let rowNo = 0; rowNo < 3; rowNo++) {
       for (let colNo = 0; colNo < 3; colNo++) {
          if (geBoard[rowNo][colNo] !== null) {
-            let gamePiece = (geBoard[rowNo][colNo] == false) ?
-               playerGamePiece : (geBoard[rowNo][colNo] ==
+            let gamePiece = (geBoard[rowNo][colNo] === false) ?
+               playerGamePiece : (geBoard[rowNo][colNo] ===
                   true) ? computerGamePiece : "";
-            let gamePieceColor = (geBoard[rowNo][colNo] == false) ?
-               playerColor : (geBoard[rowNo][colNo] ==
+            let gamePieceColor = (geBoard[rowNo][colNo] === false) ?
+               playerColor : (geBoard[rowNo][colNo] ===
                   true) ? computerColor : "#000";
             let cellNo = rowColToCell(rowNo, colNo);
             animationRequests[cellNo] = placeGamePiece(gamePiece, gamePieceColor,
@@ -291,9 +292,7 @@ function updateGameHistory(winner) {
       }
    }
 
-   historyElement.winner = winner;
-   historyElement.board = endingBoard;
-   gameHistory.push(historyElement);
+   gameHistory.push({winner: winner, board: endingBoard});
 }
 
 // Pause execution for n seconds
