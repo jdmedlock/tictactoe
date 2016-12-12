@@ -111,7 +111,8 @@ $(document).ready(function() {
 
    // Create a click handler for the cells of the game board
    $(".t3-board-cell").click(function(event) {
-      if (!myMove) {
+      let winner = getWinner(geBoard);
+      if (winner === gameInprogress) {
         let cellId = $(this).attr("id");
         let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-
           1) : 0;
@@ -122,7 +123,7 @@ $(document).ready(function() {
          pause(1).then(() => makeMove());
       }
 
-      let winner = getWinner(geBoard);
+      winner = (winner === gameInprogress) ? getWinner(geBoard) : winner;
       switch (winner) {
         case gameInprogress:
            $("#t3-status-msg").text(myMove ? "Computer's Move" : "Your move");
