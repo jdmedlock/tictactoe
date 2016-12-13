@@ -37,6 +37,7 @@ let computerGamePiece = "";
 let numNodes = 0;
 let playerGamePiece = "";
 let allowNew = true;
+let allowMove = true;
 
 // Game engine game board
 let geBoard = [
@@ -44,6 +45,9 @@ let geBoard = [
    [null, null, null],
    [null, null, null]
 ];
+
+// Cells that have been occupied
+let occupiedCells = [];
 
 // Game history is an array of history elements depicting the
 // ending result of every game. This is displayed in the modal
@@ -113,27 +117,36 @@ $(document).ready(function() {
 
    // Create a click handler for the cells of the game board
    $(".t3-board-cell").click(function(event) {
+        $("#t3-status-msg").text("");
+        if (allowMove === true) {
+        allowMove = false;
+        let winner = getWinner(geBoard);
+        if (winner === gameInprogress) {
+          let cellId = $(this).attr("id");
+          let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-
+            1) : 0;
+          let rowNo = cellToRowCol(cellNo)[0];
+          let colNo = cellToRowCol(cellNo)[1];
+          if (occupiedCells.includes(cellNo) === false) {
+            geBoard[rowNo][colNo] = false;
+            updateMove();
+            pause(1).then(() => makeMove());
+          } else {
+            $("#t3-status-msg").text("That position is occupied. Choose another");
+          }
+        }
 
-      let winner = getWinner(geBoard);
-      if (winner === gameInprogress) {
-        let cellId = $(this).attr("id");
-        let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-
-          1) : 0;
-         geBoard[cellToRowCol(cellNo)[0]][cellToRowCol(cellNo)[1]] =
-            false;
-         updateMove();
-         pause(1).then(() => makeMove());
-      }
-
-      winner = (winner === gameInprogress) ? getWinner(geBoard) : winner;
-      switch (winner) {
-        case gameInprogress:
-           break;
-        default:
-           $("#t3-status-msg").text(winner === gameWonComputer ? "Computer Won!" :
-              winner == gameWonPlayer ? "Player Won!" :
-              winner == gameTied ? "Tie Game!" : "");
-           updateGameHistory(winner);
+        winner = (winner === gameInprogress) ? getWinner(geBoard) : winner;
+        switch (winner) {
+          case gameInprogress:
+             break;
+          default:
+             $("#t3-status-msg").text(winner === gameWonComputer ? "Computer Won!" :
+                winner == gameWonPlayer ? "Player Won!" :
+                winner == gameTied ? "Tie Game!" : "");
+             updateGameHistory(winner);
+        }
+        allowMove = true;
       }
    });
 
@@ -169,6 +182,7 @@ function clearGameBoard() {
      [null, null, null],
      [null, null, null]
    ];
+   occupiedCells = [];
    updateMove();
 }
 
@@ -265,6 +279,7 @@ function updateButtons() {
                playerColor : (geBoard[rowNo][colNo] ===
                   true) ? computerColor : "#000";
             let cellNo = rowColToCell(rowNo, colNo);
+            occupiedCells.push(cellNo.toString());
             animationRequests[cellNo] = placeGamePiece(gamePiece, gamePieceColor,
                "#t3-canvas-" + cellNo);
          }
