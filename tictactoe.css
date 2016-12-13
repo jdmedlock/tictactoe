@@ -36,7 +36,8 @@ th {
     margin-top: 10px;
 }
 
-.t3-btn, .t3-btn:hover, .t3-btn:active, .t3-btn:visited, .t3-btn:focus {
+/*.t3-btn, .t3-btn:hover, .t3-btn:active, .t3-btn:visited, .t3-btn:focus { */
+.t3-btn {
     background-color: #CDE0E2;
     border-color: black;
     color: #225F65;
