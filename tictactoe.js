@@ -34,9 +34,9 @@ const cellMap = [
 
 let animationRequests = [];
 let computerGamePiece = "";
-let myMove = false;
 let numNodes = 0;
 let playerGamePiece = "";
+let allowNew = true;
 
 // Game engine game board
 let geBoard = [
@@ -100,7 +100,9 @@ $(document).ready(function() {
 
    // Create a button handler for the new game request
    $(".t3-btn-newgame").click(function(event) {
-      clearGameBoard();
+      if (getWinner(geBoard) !== gameInprogress) {
+        clearGameBoard();
+      }
    });
 
    // Create a button handler to close the game results dialog
@@ -111,6 +113,7 @@ $(document).ready(function() {
 
    // Create a click handler for the cells of the game board
    $(".t3-board-cell").click(function(event) {
+
       let winner = getWinner(geBoard);
       if (winner === gameInprogress) {
         let cellId = $(this).attr("id");
@@ -118,7 +121,6 @@ $(document).ready(function() {
           1) : 0;
          geBoard[cellToRowCol(cellNo)[0]][cellToRowCol(cellNo)[1]] =
             false;
-         myMove = true;
          updateMove();
          pause(1).then(() => makeMove());
       }
@@ -126,7 +128,6 @@ $(document).ready(function() {
       winner = (winner === gameInprogress) ? getWinner(geBoard) : winner;
       switch (winner) {
         case gameInprogress:
-           $("#t3-status-msg").text(myMove ? "Computer's Move" : "Your move");
            break;
         default:
            $("#t3-status-msg").text(winner === gameWonComputer ? "Computer Won!" :
@@ -168,7 +169,6 @@ function clearGameBoard() {
      [null, null, null],
      [null, null, null]
    ];
-   myMove = false;
    updateMove();
 }
 
@@ -368,7 +368,6 @@ function getWinner(board) {
 function makeMove() {
    geBoard = minmaxMove(geBoard);
    console.log(numNodes);
-   myMove = false;
    updateMove();
 }
 
