@@ -97,7 +97,8 @@ $(document).ready(function() {
 
     // Create a click handler for the cells of the game board
     $(".t3-board-cell").click(function(event) {
-        makePlayerMove(this).then();
+        makePlayerMove(this);
+        event.stopPropagation();
     });
 
     // Create a change handler for the game piece radio button
@@ -166,12 +167,11 @@ function displayScores() {
 // Evaluate and respond to a player move
 //
 // Returns: N/a
-function makePlayerMove(buttonThis) {
-  return new Promise(function(resolve, reject) {
+function makePlayerMove(clickThis) {
     $("#t3-status-msg").text("");
     let winner = getWinner(geBoard);
     if (winner === gameInprogress) {
-        let cellId = $(buttonThis).attr("id");
+        let cellId = $(clickThis).attr("id");
         let cellNo = (cellId.startsWith("t3-cell-")) ? cellId.slice(-
             1) : 0;
         let rowNo = cellToRowCol(cellNo)[0];
@@ -179,7 +179,7 @@ function makePlayerMove(buttonThis) {
         if (occupiedCells.includes(cellNo) === false) {
             geBoard[rowNo][colNo] = false;
             updateMove();
-            pause(.5).then(() => makeComputerMove());
+            pause(.25).then(() => makeComputerMove());
         } else {
             $("#t3-status-msg").text("That position is occupied. Choose another");
         }
@@ -195,7 +195,6 @@ function makePlayerMove(buttonThis) {
                 winner == gameTied ? "Tie Game!" : "");
             updateGameHistory(winner);
     }
-  });
 }
 
 // Pause execution for n seconds
