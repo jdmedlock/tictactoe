@@ -119,32 +119,7 @@ th {
 
 
 /* ---------------------------------------------
-   Modal Game Results dialog
-   --------------------------------------------- */
-
-.t3-game-results {
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.t3-results-tbl {
-    color: black;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    width: 100%;
-}
-
-.t3-results-tbl.thead {
-    text-align: center;
-}
-
-
-/* ---------------------------------------------
-   Modal Help dialog
+   Common Modal Dialog Settings
    --------------------------------------------- */
 
 .t3-dialog-open {
@@ -172,6 +147,45 @@ th {
     /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */
+}
+
+
+/* ---------------------------------------------
+   Modal Greeting dialog
+   --------------------------------------------- */
+#t3-greeting-dialog .t3-dialog-content {
+   width: 40%;
+}
+
+/* ---------------------------------------------
+   Modal help dialog
+   --------------------------------------------- */
+#t3-help-dialog .t3-dialog-content {
+   width: 40%;
+}
+
+/* ---------------------------------------------
+   Modal Game Results dialog
+   --------------------------------------------- */
+
+.t3-game-results {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.t3-results-tbl {
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+}
+
+.t3-results-tbl.thead {
+    text-align: center;
 }
 
 

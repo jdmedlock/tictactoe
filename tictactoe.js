@@ -280,7 +280,7 @@ function rowColToCell(rowNo, colNo) {
     }, notFound);
 }
 
-// Check the internal game board for a winner
+// Update the UI game board
 //
 // Returns: N/a
 function updateMove() {
@@ -397,7 +397,6 @@ function getWinner(board) {
 // Returns: N/a
 function makeComputerMove() {
     geBoard = minmaxMove(geBoard);
-    console.log(numNodes);
     updateMove();
 }
 
