@@ -36,7 +36,6 @@ let animationRequests = [];
 let computerGamePiece = "";
 let numNodes = 0;
 let playerGamePiece = "";
-let allowNew = true;
 
 // Game engine game board
 let geBoard = [
@@ -80,9 +79,7 @@ $(document).ready(function() {
     // Create a button handler for the game results dialog
     // TODO: use JQuery off and on to disable/reenable handler
     $(".t3-btn-results").click(function(event) {
-        $(".t3-btn-results").off("click");
         displayScores();
-        $(".t3-btn-results").on("click");
     });
 
     // Create a button handler for the new game request
@@ -100,7 +97,7 @@ $(document).ready(function() {
 
     // Create a click handler for the cells of the game board
     $(".t3-board-cell").click(function(event) {
-            makePlayerMove(this);
+        makePlayerMove(this).then();
     });
 
     // Create a change handler for the game piece radio button
@@ -170,6 +167,7 @@ function displayScores() {
 //
 // Returns: N/a
 function makePlayerMove(buttonThis) {
+  return new Promise(function(resolve, reject) {
     $("#t3-status-msg").text("");
     let winner = getWinner(geBoard);
     if (winner === gameInprogress) {
@@ -181,7 +179,7 @@ function makePlayerMove(buttonThis) {
         if (occupiedCells.includes(cellNo) === false) {
             geBoard[rowNo][colNo] = false;
             updateMove();
-            pause(1).then(() => makeComputerMove());
+            pause(.5).then(() => makeComputerMove());
         } else {
             $("#t3-status-msg").text("That position is occupied. Choose another");
         }
@@ -197,6 +195,18 @@ function makePlayerMove(buttonThis) {
                 winner == gameTied ? "Tie Game!" : "");
             updateGameHistory(winner);
     }
+  });
+}
+
+// Pause execution for n seconds
+//
+// Returns: Promise when the timeout has expired
+function pause(waitSeconds) {
+    return new Promise(function(resolve, reject) {
+        setTimeout(() => {
+            resolve("Pause of " + waitSeconds + " completed.");
+        }, waitSeconds * 1000);
+    });
 }
 
 // Place a players piece on the UI game board
@@ -327,16 +337,6 @@ function updateGameHistory(winner) {
     });
 }
 
-// Pause execution for n seconds
-//
-// Returns: Promise when the timeout has expired
-function pause(waitSeconds) {
-    return new Promise(function(resolve, reject) {
-        setTimeout(() => {
-            resolve("Pause of " + waitSeconds + " completed.");
-        }, waitSeconds * 1000);
-    });
-}
 // -------------------------------------------------------------
 // Game Logic functions
 // -------------------------------------------------------------
