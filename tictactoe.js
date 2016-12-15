@@ -325,7 +325,7 @@ function updateGameHistory(winner) {
         for (let colNo = 0; colNo < 3; colNo++) {
             endingBoard[rowNo][colNo] = (geBoard[rowNo][colNo] === false) ?
                 playerGamePiece : (geBoard[rowNo][colNo] ===
-                    true) ? computerGamePiece : " ";
+                    true) ? computerGamePiece : "-";
         }
     }
 
