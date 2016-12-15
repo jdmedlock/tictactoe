@@ -28,7 +28,7 @@ th {
 }
 
 .col-xs-8 {
-    display:inline-block;
+    display: block;
 }
 
 /* ---------------------------------------------
@@ -36,6 +36,7 @@ th {
    --------------------------------------------- */
 
 .t3-bar-row {
+    display:block;
     margin-top: 10px;
 }
 
@@ -43,14 +44,8 @@ th {
     background-color: #CDE0E2;
     border-color: black;
     color: #225F65;
-    font-size: large;
+    font-size: small;
     margin-right: 10px;
-}
-
-.t3-btn-center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
 }
 
 .t3-small-text {
