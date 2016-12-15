@@ -154,6 +154,7 @@ th {
    Modal Greeting dialog
    --------------------------------------------- */
 #t3-greeting-dialog .t3-dialog-content {
+   text-align: center;
    width: 40%;
 }
 
