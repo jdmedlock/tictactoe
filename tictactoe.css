@@ -33,12 +33,9 @@ th {
    --------------------------------------------- */
 
 .t3-bar-row {
-    margin-left: auto;
-    margin-right: auto;
     margin-top: 10px;
 }
 
-/*.t3-btn, .t3-btn:hover, .t3-btn:active, .t3-btn:visited, .t3-btn:focus { */
 .t3-btn {
     background-color: #CDE0E2;
     border-color: black;
@@ -50,6 +47,7 @@ th {
 .t3-btn-center {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 .t3-small-text {
