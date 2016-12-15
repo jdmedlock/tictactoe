@@ -97,8 +97,10 @@ $(document).ready(function() {
 
     // Create a click handler for the cells of the game board
     $(".t3-board-cell").click(function(event) {
+      if (getWinner(geBoard) === gameInprogress) {
         makePlayerMove(this);
         event.stopPropagation();
+      }
     });
 
     // Create a change handler for the game piece radio button
@@ -179,7 +181,8 @@ function makePlayerMove(clickThis) {
         if (occupiedCells.includes(cellNo) === false) {
             geBoard[rowNo][colNo] = false;
             updateMove();
-            pause(.25).then(() => makeComputerMove());
+            pause(.25);
+            makeComputerMove();
         } else {
             $("#t3-status-msg").text("That position is occupied. Choose another");
         }
@@ -201,11 +204,7 @@ function makePlayerMove(clickThis) {
 //
 // Returns: Promise when the timeout has expired
 function pause(waitSeconds) {
-    return new Promise(function(resolve, reject) {
-        setTimeout(() => {
-            resolve("Pause of " + waitSeconds + " completed.");
-        }, waitSeconds * 1000);
-    });
+  setTimeout(() => {}, waitSeconds * 1000);
 }
 
 // Place a players piece on the UI game board
@@ -442,8 +441,8 @@ function recurseMinmax(board, player) {
                     board[i][j] = player;
                     let value = recurseMinmax(board, !player)[0];
                     if ((player && (nextVal == null || value > nextVal)) || (!player &&
-                            (nextVal == null || value < nextVal))) {
-                        nextBoard = board.map(function(arr) {
+                        (nextVal == null || value < nextVal))) {
+                      nextBoard = board.map(function(arr) {
                             return arr.slice();
                         });
                         nextVal = value;
