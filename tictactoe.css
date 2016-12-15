@@ -33,6 +33,8 @@ th {
    --------------------------------------------- */
 
 .t3-bar-row {
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 10px;
 }
 
