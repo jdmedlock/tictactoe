@@ -27,6 +27,9 @@ th {
     text-align: center;
 }
 
+.col-xs-8 {
+    display:inline-block;
+}
 
 /* ---------------------------------------------
    Common elements used throughout the page
